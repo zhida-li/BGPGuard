@@ -2,7 +2,7 @@
 The Flask web application of the BGP AnomalyDetection Tool
 
 Structure:
-	```
+```
 	BGPAnomalyDectionTool
 	├── README.md
 	├── LICENSE
@@ -27,7 +27,7 @@ Structure:
 		│	   ├── RNN model.png
 		│	   ├── BLS model.png
 		└──	   ├── logo.png
-	```
+```
 
 Run app:
     ```bash
