@@ -1,0 +1,46 @@
+{% extends "common/layout.html" %}
+
+{% block content %}
+<!--Part 1-->
+<h1>BGP Anomaly Detection Tool --> Jumbotron</h1>
+<p>Briefly describe the tool</p>
+<hr>
+
+<!--Part 2-->
+<h1>Experiment</h1>
+<p>Description</p>
+<p>Link to the Experiment page</p>
+<hr>
+
+<!--Part 3-->
+<h1>Real-Time Detection</h1>
+<p>Description</p>
+<p>Link to the real-time detection page</p>
+<hr>
+
+
+<h3>Numbers Updating in Real-Time (example)</h3>
+<h4 id="t">Text t1 will be changed</h4>
+
+<h4 id="t2">Text t2 will be changed</h4>
+
+
+<!-- Select site -->
+<!-- <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+<form action="{# {{ url_for('analyze')}}#} " method="POST">
+    <div class="input-field">
+        <select id="role" name="model_choice">
+            <option value="" disabled selected>Select Collection Site</option>
+            <option value="ripe">RIPE</option>
+            <option value="routeviews">Route Views</option>
+        </select>
+        <label for="role">Select RIPE or Route Views</label>
+    </div>
+
+    <button type="submit">Submit</button>
+    <button type="reset">Reset</button>
+</form>
+
+<p>Using {{ model_selected}}</p>
+<p>Number {{ result_prediction}}</p> -->
+{% endblock %}
