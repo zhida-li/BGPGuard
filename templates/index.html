@@ -1,46 +1,115 @@
-{% extends "common/layout.html" %}
+{% extends "layout.html" %}
 
 {% block content %}
-<!-- Part 1 -->
-<h1>BGP Anomaly Detection Tool --> Jumbotron</h1>
-<p>Briefly describe the tool</p>
-<hr>
+        <!--Jumbotron section -->
+        <section id="intro">
+            <div class="jumbotron">
+                <div class="container">
+                    <!-- define columns -->
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h1>BGP ANOMALY DETECTION IN REAL-TIME & OFF-LINE</h1>
+                            <p class="lead">
+                                A BGP anomaly detection tool that integrates
+                                various stages of the anomaly detection process.
+                            </p>
+                            <br>
+                            <a class="btn btn-primary btn-md" href="#intro_2modes">Get started
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                            <br>
+                            <div class="d-flex justify-content-center">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="spinner-grow text-primary" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<!-- Part 2 -->
-<h1>Experiment</h1>
-<p>Description</p>
-<p>Link to the Experiment page</p>
-<hr>
+        <!-- BGPAnomalyDetect Framework -->
+        <section id="intro_framework">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h3>Framework</h3>
+                        <img src="../static/img/BGPAnomalyDetect_framework.png" alt="BGPAnomalyDetect Framework">
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<!-- Part 3 -->
-<h1>Real-Time Detection</h1>
-<p>Description</p>
-<p>Link to the real-time detection page</p>
-<hr>
 
+        <!-- Application modes section -->
+        <section id="intro_2modes">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h3>Run Two Detection Modes</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- 6 6 pattern -->
 
-<h3>Numbers Updating in Real-Time (example)</h3>
-<h4>Text here will be added: <span id="t1_num"></span> </h4>
+                    <!-- 1st column -->
+                    <div class="col-md-6">
+                        <!-- each part have a div, + white background + shadow -->
+                        <div class="outer">
+                            <!-- add the link -->
+                            <a href="#">
+                                <!-- top figure, down content, 2 div -->
+                                <div class="upper">
+                                    <img src="../static/img/smc2020_fig1a_ann_v4.png">
+                                    <!-- words on figure -->
+                                    <div class="innertext">
+                                        <span>Try it</span>
+                                        <h4>visualize the detection results in a chart</h4>
+                                    </div>
+                                </div>
+                                <!-- words below figure -->
+                                <div class="lower">
+                                    <h3>Real-Time Detection</h3>
+                                    <span><i class="fas fa-database"></i> Collection Site: RIPE or Route Views</span>
+                                    <br>
+                                    <span><i class="fas fa-brain"></i> Algorithm: BLS or GRU</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
 
-<h4 >Text t2 will be updated:</h4>
-<p id="t2_num">t2</p>
+                    <!-- 2st column -->
+                    <div class="col-md-6">
+                        <!-- each part have a div, + white background + shadow -->
+                        <div class="outer">
+                            <!-- add the link -->
+                            <a href="#">
+                                <!-- top figure, down content, 2 div -->
+                                <div class="upper">
+                                    <img src="../static/img/inner.png">
+                                    <!-- words on figure -->
+                                    <div class="innertext">
+                                        <span>Try it</span>
+                                        <h4>Customize your experiments</h4>
+                                    </div>
+                                </div>
+                                <!-- words below figure -->
+                                <div class="lower">
+                                    <h3>Off-Line Classfication</h3>
+                                    <span><i class="fas fa-database"></i> Collection Site: RIPE or Route Views</span>
+                                    <br>
+                                    <span><i class="fas fa-brain"></i> Algorithm: BLS or GRU</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
 
-<!-- Select site -->
-<!-- <hr style="height:2px;border-width:0;color:gray;background-color:gray">
-<form action="{# {{ url_for('analyze')}}#} " method="POST">
-    <div class="input-field">
-        <select id="role" name="model_choice">
-            <option value="" disabled selected>Select Collection Site</option>
-            <option value="ripe">RIPE</option>
-            <option value="routeviews">Route Views</option>
-        </select>
-        <label for="role">Select RIPE or Route Views</label>
-    </div>
+                </div>
+            </div>
+        </section>
 
-    <button type="submit">Submit</button>
-    <button type="reset">Reset</button>
-</form>
-
-<p>Using {{ model_selected}}</p>
-<p>Number {{ result_prediction}}</p> -->
 {% endblock %}

@@ -1,30 +1,37 @@
 #!/usr/bin/env python
+# import external libraries
 from flask import Flask, render_template, url_for, request
 from flask_socketio import SocketIO, emit
 from threading import Lock
 import random
 
-async_mode = None
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret!'
-socketio = SocketIO(app)
-thread = None
-thread_lock = Lock()
+# import customized library
+from config import flask_config
+
+async_mode, app, socketio, thread, thread_lock = flask_config()
+
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
 
-@app.route('/bgp-ad-experiment')
-def bgpexperiment():
-    header1 = "Experiment"
-    return render_template('bgp-ad-experiment.html', header1=header1)
+@app.route('/bgp_ad_realtime')
+def bgp_ad_realtime():
+    header1 = "Real-time Detection"
+    return render_template('bgp_ad_realtime.html', header2=header1)
 
-@app.route('/bgp-ad-realtime')
-def bgpadrealtime():
-    header2 = "Real-time Detection"
-    return render_template('bgp-ad-realtime.html', header2=header2)
+
+@app.route('/bgp_ad_offline')
+def bgp_ad_offline():
+    header2 = "Experiment"
+    return render_template('bgp_ad_offline.html', header1=header2)
+
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
 
 # @app.route('/',methods=["POST"])
 # def analyze():
@@ -59,7 +66,7 @@ def background_thread():
 if __name__ == '__main__':
     socketio.run(app, debug=True)
     # app.run(debug=True)
-    
+
 """
 use of app.run vs. socketio.run :
 
@@ -70,6 +77,4 @@ The eventlet web server, also started via socketio.run()
 The Flask dev web server, which can be started either via app.run() or for convenience also via socketio.run()
 The Gunicorn web server with the eventlet or gevent workers, started via the gunicorn command.
 The uwsgi web server with gevent, started via the uwsgi command.
-"""    
-    
-
+"""

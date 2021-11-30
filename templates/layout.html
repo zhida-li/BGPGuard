@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap4 CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+        <!-- Google fonts CSS-->
+        <!-- Google fonts CSS-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&family=Open+Sans&display=swap" rel="stylesheet">
+        <!-- my CSS -->
+        <link rel="stylesheet" href="../static/css/style.css">
+
+        <title>BGP Anomaly Detection</title>
+    </head>
+
+    <body>
+        <!-- Back To Top Button -->
+        <button onclick="topFunction()" id="btn_toTop" title="Go to top">
+            <i class="fas fa-chevron-up"></i>
+            <span>Top</span>
+        </button>
+
+        <!-- Navigation section -->
+        <header>
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <!-- <a class="navbar-brand" href="#"><img src="pictures/logo.jpg"></a> -->
+                    <a id="navbar_brand" class="navbar-brand" href="#">BGP Anomaly Detection App</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li lass="nav-item">
+                                <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('bgp_ad_realtime') }}">Real-Time Detection</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('bgp_ad_offline') }}">Off-Line Classification</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
+                            </li>
+                        </ul>
+                        <span class="navbar-text">
+                            <span><i class="fas fa-code-branch"></i> v1.0.0</span>
+                        </span>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        {% block content %}
+        {% endblock %}
+
+
+        <!-- Footer section -->
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <!-- 4 4 4 列 -->
+                    <!-- 1 col -->
+                    <div class="col-md-3 text-left">
+                        <img src="../static/img/cnl_logo.png" alt="logo">
+                        <p><i class="far fa-copyright"></i> 2021 Communication Networks Laboratory</p>
+                    </div>
+
+                    <!-- 2 col -->
+                    <div class="col-md-5 text-left">
+                        <h5>Navigation</h5>
+                        <ul>
+                            <li><a href="{{ url_for('index') }}">Home</a></li>
+                            <li><a href="{{ url_for('bgp_ad_realtime') }}">Real-Time Detection</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="{{ url_for('bgp_ad_offline') }}">Off-Line Classification</a></li>
+                            <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- 3 col -->
+                    <div class="col-md-4 text-left">
+                        <h5>Contact us</h5>
+                        <!-- br小换行 -->
+                        <p><i class="fas fa-map-marker-alt"></i> Communication Networks Laboratory,
+                            Simon Fraser University,
+                            8888 University Dr., Burnaby, B.C. V5A 1S6 Canada
+                        </p>
+                        <p><i class="fas fa-envelope"></i>
+                        <a href="mailto: zhidal@sfu.ca">zhidal@sfu.ca</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+
+        <!-- Back To Top JS-->
+        <script src="../static/js/backToTop.js"></script>">
+
+        <!-- jQuery, Popper, Bootstrap JS-->
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+        <!-- socket io JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+        <!-- Emit data JS -->
+        <script src="../static/js/index_emit.js"></script>">
+
+        <!-- font awesome, icon -->
+        <script src="https://kit.fontawesome.com/af99384c5a.js" crossorigin="anonymous"></script>
+    </body>
+
+</html>

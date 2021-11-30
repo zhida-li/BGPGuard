@@ -1,0 +1,256 @@
+/* my CSS */
+h1,h2,h3,h4,h5,h6{
+    font-family: 'Noto Sans SC', sans-serif;
+}
+
+p,a,input,label,textarea,span,ul,li{
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* 加入我们的size */
+h3{
+    font-size: 35px;
+    line-height: 1.5;
+}
+
+/* 所有p是灰色 */
+p{
+    /* color: #707070; */
+    color: #3b3b3b;
+}
+/* bootstrap p class. Make a paragraph stand out, 点放一起是同时两个条件成立 */
+p.lead{
+    color: black;
+}
+/* 图片通常会爆出来，设定宽度 */
+img{
+    max-width: 100%;
+}
+
+/* buttons */
+.btn{
+    background: #4078d3;
+    color: white;
+    /* 上下 左右 */
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+/* Backtotop button */
+#btn_toTop {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    font-size: 15px;
+    border: none;
+    outline: none;
+    background-color: #4078d3;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 30px;
+}
+#btn_toTop span{
+    display: block;
+}
+#btn_toTop:hover{
+    background-color: #555;
+}
+
+/* navigation bar */
+/* align with jumbotron */
+header .container{
+    padding: 0px;
+}
+/* header nav img{ 
+    width: 175px;
+} */
+header li{
+    margin: 10px;
+}
+header {
+    background: #343a40;
+}
+/* header .navbar .navbar-nav .nav-link:active{
+    color: red;
+} */
+header .navbar .navbar-nav .nav-link{
+    color: white;
+}
+header .navbar .navbar-nav .nav-link:hover{
+    color: #bbb9b9 !important;
+}
+
+#navbar_brand{
+    font-size: 20px;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 10px;
+    padding: 5px 5px;
+}
+header .collapse{
+    padding: 0px 45px;
+}
+
+#intro .jumbotron{
+    height: 60vh;
+    margin-bottom: 0px;
+    background: white;
+    /* rgba(red, green, blue, alpha) The alpha 0.0 (fully transparent) and 1.0 (not transparent at all) */
+    /* background-image: linear-gradient(to right, rgba(255,255,255,0.9) 20%,rgba(255,255,255,0.1) 100%), */
+    background-image: linear-gradient(to right, rgba(255,255,255,0.99) 20%, rgba(255,255,255,0.7) 70%, rgba(255,255,255,0) 95%),
+    url("../../static/img/twitter-ego-degreeRange400-317nodes.png");
+    background-size: contain;
+    background-position: center;
+}
+#intro h1{
+    font-size: 60px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+/* center the container */
+#intro .jumbotron .container{
+	position:relative;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+#intro_framework h3{
+    margin-bottom: 60px;
+}
+#intro_framework {
+    padding: 80px 0px;
+    background: rgb(248, 248, 248);
+}
+
+
+/* intro_2modes section */
+#intro_2modes{
+    padding: 80px 0px;
+}
+
+#intro_2modes h3{
+    margin-bottom: 60px;
+}
+
+/* 调整第三个sec的图片里面的字 */
+/* 第1列 */
+#intro_2modes .upper{
+    position: relative;
+}
+#intro_2modes .innertext{
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+}
+/* 可报名按钮背景 */
+#intro_2modes .innertext span{
+    background: rgba(255, 255, 255, 0.3);
+    padding: 0px 15px;
+    border-radius: 20px;
+}
+/* h调整 */
+#intro_2modes .container h4{
+    font-size: 22px;
+    margin-top: 18px;
+}
+
+/* 第2列 */
+#intro_2modes .lower h3{
+    font-size: 24px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+/* icon margin */
+#intro_2modes .lower i{
+    margin-right: 6px;
+}
+#intro_2modes .lower{
+    /* 上 右 下 左 */
+    padding: 6px 20px 20px 20px; 
+}
+
+#intro_2modes .outer{
+    background: white;
+    box-shadow: 0 0 8px 0 rgba(0,0,0,0.08);
+}
+
+/* intro_2modes secton的a tag 属性去掉 */
+#intro_2modes a{
+    color: black;
+}
+/* Select and style a link when you mouse over it: */
+#intro_2modes a:hover{
+    text-decoration: none;
+}
+
+
+/* intro_author section */
+#intro_author {
+    padding: 80px 0px;
+    background: rgb(248, 248, 248);
+}
+
+#intro_author h3{
+    margin-bottom: 60px;
+}
+
+#intro_author img{
+    width: 150px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+
+/* 整个email section 填充 */
+#email{
+    padding: 80px 0px;
+}
+#email h3{
+    margin-bottom: 60px;
+}
+
+
+footer{
+    border-top: 1px solid #c9c9c9;
+    padding: 40px 0px;
+    background: #343a40;
+}
+footer img{
+    width: 160px;
+    margin-bottom: 15px;
+}
+footer h5{
+    margin-bottom: 15px;
+    color: white;
+}
+footer p{
+    color: #c9c9c9;
+}
+footer ul li a{
+    color: #c9c9c9;
+}
+footer ul li a:hover{
+    color: #bbb9b9;
+}
+/* email弄成红色 */
+footer .col-md-4 a{
+    color: #f05f5c;
+}
+
+/* footer中间的连接 词语 */
+footer ul{
+    list-style: none;
+    padding: 0px;
+    float: left;
+    /* 主页和常见问题列的间隔 */
+    margin-right: 50px;
+}
+/* 每个li之间的间隔, 放ul没用的 */
+footer ul li{
+    margin-bottom: 10px;
+}
+

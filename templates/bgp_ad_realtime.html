@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<!-- Part 1 -->
+<!-- Just an example -->
+<h1 >{{ header1 }}</h1>
+<hr>
+
+    <div class="container">
+        <h3>Numbers Updating in Real-Time (example)</h3>
+        <p>Text here will be added: <span id="t1_num"></span> </p>
+
+        <p>Text t2 will be updated:</p><p id="t2_num">t2</p>
+
+        <!-- Select site -->
+        <!-- <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+        <form action="{# {{ url_for('analyze')}}#} " method="POST">
+            <div class="input-field">
+                <select id="role" name="model_choice">
+                    <option value="" disabled selected>Select Collection Site</option>
+                    <option value="ripe">RIPE</option>
+                    <option value="routeviews">Route Views</option>
+                </select>
+                <label for="role">Select RIPE or Route Views</label>
+            </div>
+
+            <button type="submit">Submit</button>
+            <button type="reset">Reset</button>
+        </form>
+
+        <p>Using {{ model_selected}}</p>
+        <p>Number {{ result_prediction}}</p> -->
+    </div>
+
+<!-- Part 2 -->
+    <div class="container">
+        <h1 >Site selection</h1>
+        <p>site,start_date, end_date, start_date_anomaly, end_date_anomaly, start_time_anomaly, end_time_anomaly,
+            partition </p>
+        <p>Use dropdown menu or select functions</p>
+        <p>Button to start and reset</p>
+    </div>
+
+
+{% endblock %}
