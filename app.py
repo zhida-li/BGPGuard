@@ -1,33 +1,39 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # import external libraries
 from flask import Flask, render_template, url_for, request
 from flask_socketio import SocketIO, emit
 from threading import Lock
 import random
+import time
+import psutil
 
 # import customized library
 from config import flask_config
 
+
 async_mode, app, socketio, thread, thread_lock = flask_config()
 
 
+# Home
 @app.route('/')
 def index():
     return render_template('index.html')
 
 
+# Real-Time Detection
 @app.route('/bgp_ad_realtime')
 def bgp_ad_realtime():
-    header1 = "Real-time Detection"
-    return render_template('bgp_ad_realtime.html', header2=header1)
+    return render_template('bgp_ad_realtime.html', async_mode=socketio.async_mode)
 
 
+# Off-Line Classification
 @app.route('/bgp_ad_offline')
 def bgp_ad_offline():
     header2 = "Experiment"
-    return render_template('bgp_ad_offline.html', header1=header2)
+    return render_template('bgp_ad_offline.html', header2=header2)
 
 
+# Contact
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
@@ -55,12 +61,22 @@ def test_connect():
 
 
 def background_thread():
+    count = 0
     while True:
-        socketio.sleep(2)
-        t1 = random.randint(1, 50)
-        t2 = random.randint(50, 100)
+        # socketio.sleep(2)
+        t = time.strftime('%a, %d %b %Y %H:%M:%S', time.localtime())
+        t2 = random.randint(1, 50)
         socketio.emit('server_response',
-                      {'data': [t1, t2]}, namespace='/test_conn')
+                      {'data': [t, t2]}, namespace='/test_conn')
+
+        socketio.sleep(1)
+        count += 1
+        t_chart = time.strftime('%H:%M:%S', time.localtime())
+        cpus = psutil.cpu_percent(interval=None, percpu=True)  # percentages for each core
+        cpus = sum(cpus)/len(cpus)
+        socketio.emit('server_response_echart',
+                      {'data_cpu': [t_chart, cpus], 'count': count},
+                      namespace='/test_conn')
 
 
 if __name__ == '__main__':

@@ -2,16 +2,13 @@
 
 {% block content %}
 
-<!-- Part 1 -->
-<!-- Just an example -->
-<h1 >{{ header1 }}</h1>
-<hr>
-
     <div class="container">
         <h3>Numbers Updating in Real-Time (example)</h3>
-        <p>Text here will be added: <span id="t1_num"></span> </p>
+        <p>Current time: <span id="t_currentTime"></span> </p>
 
-        <p>Text t2 will be updated:</p><p id="t2_num">t2</p>
+        <p>Random number for testing:</p><p id="t2_num">t2</p>
+        <!-- Emit data JS -->
+        <script src="../static/js/data_emit.js"></script>
 
         <!-- animation for loading -->
         <div class="d-flex justify-content-center">
@@ -39,7 +36,12 @@
         <p>Number {{ result_prediction}}</p> -->
     </div>
 
-<!-- Part 2 -->
+    <!-- EChart placeholder -->
+    <div id="echart_cpu" style="height:500px;border:1px solid #ccc;padding:10px;"></div>
+    <!-- Data direction: Server => user, EChart JS -->
+    <script src="../static/js/echart_emit.js"></script>
+
+    <!-- Part 2 -->
     <div class="container">
         <h1 >Site selection</h1>
         <p>site,start_date, end_date, start_date_anomaly, end_date_anomaly, start_time_anomaly, end_time_anomaly,

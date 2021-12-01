@@ -21,7 +21,7 @@ BGPAnomalyDectionTool
 │	│   └── style.css
 │	├── js
 │	│ 	├── backToTop.js
-│	│ 	├── index_emit.js
+│	│ 	├── data_emit.js
 │	│	└── ...
 │	├── img
 │	│ 	├── BGPAnomalyDetect_framework.png

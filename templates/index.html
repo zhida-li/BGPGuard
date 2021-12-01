@@ -52,7 +52,7 @@
                         <!-- each part have a div, + white background + shadow -->
                         <div class="outer">
                             <!-- add the link -->
-                            <a href="#">
+                            <a href="{{ url_for('bgp_ad_realtime') }}">
                                 <!-- top figure, down content, 2 div -->
                                 <div class="upper">
                                     <img src="../static/img/smc2020_fig1a_ann_v4.png">
@@ -78,7 +78,7 @@
                         <!-- each part have a div, + white background + shadow -->
                         <div class="outer">
                             <!-- add the link -->
-                            <a href="#">
+                            <a href="{{ url_for('bgp_ad_offline') }}">
                                 <!-- top figure, down content, 2 div -->
                                 <div class="upper">
                                     <img src="../static/img/inner.png">
@@ -90,7 +90,7 @@
                                 </div>
                                 <!-- words below figure -->
                                 <div class="lower">
-                                    <h3>Off-Line Classfication</h3>
+                                    <h3>Off-Line Classification</h3>
                                     <span><i class="fas fa-database"></i> Collection Site: RIPE or Route Views</span>
                                     <br>
                                     <span><i class="fas fa-brain"></i> Algorithm: BLS or GRU</span>
