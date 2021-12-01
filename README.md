@@ -1,32 +1,55 @@
 # BGPDetect-web-app
-The Flask web application of the BGP AnomalyDetection Tool
+The Flask web application of the BGP Anomaly Detection Tool
 
 Structure:
 ```
 BGPAnomalyDectionTool
+├── app.py
+├── config.py
+├── requirements.txt
 ├── README.md
 ├── LICENSE
-├── service
-│   ├── requirements.txt
-│   ├── app.py
-│   ├── Tool module 1
-│   ├── Tool module 2
-│   ├── Tool module 3
-│   └── ...
-└── ui
-	├── src
-	│   ├── index.html
-	│	├── bgp-ad-experiment.html
-	│ 	├── bgp-ad-realtime.html
-	│	├── common
-	│	   ├── layout.html
-	├── static
-	│ 	├── unknown.css
-	│ 	├── unknown.js
-	│	├── image
-	│	   ├── RNN model.png
-	│	   ├── BLS model.png
-	└──	   ├── logo.png
+├── templates
+│   ├── index.html
+│   ├── bgp_ad_realtime.html
+│   ├── bgp_ad_offline.html
+│   ├── contact.html
+│   └── layout.html
+│
+├── static
+│	├── css
+│	│   └── style.css
+│	├── js
+│	│ 	├── backToTop.js
+│	│ 	├── index_emit.js
+│	│	└── ...
+│	├── img
+│	│ 	├── BGPAnomalyDetect_framework.png
+│	│ 	├── cnl_logo.png
+│	│ 	├── profile.png
+│	└──	└── ...
+│
+├── apps
+│	├── __init__.py
+│	├── app_realtime
+│	│   ├── __init__.py
+│	│	├── models.py
+│	│	└── ...
+│	├── app_offline
+│	│   ├── __init__.py
+│	│	├── models.py
+│	│	└── ...
+│	│	   ├── ...
+│	│	   ├── ...
+│	└──	   └── ...
+│
+├── database
+│	├── __init__.py
+│	├── database.py
+│	├── db_files
+│	│	├── ...
+│	└──	└── ...
+└──	
 ```
 
 Run app:
