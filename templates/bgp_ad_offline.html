@@ -1,31 +1,45 @@
 {% extends "layout.html" %}
 
 {% block content %}
+        <!-- Off-line classification section -->
+        <section id="ad_offLine">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h3>{{ header2 }}</h3>
+                    </div>
+                </div>
 
-<!-- Part 1 -->
-<h1>{{ header2 }}</h1>
-<hr>
+                <!-- introduction -->
+                <div class="row">
+                    <div class="col-md-10 offset-md-1 text-left">
+                        <p>Customizing off-line experiments by specifying the collection site,
+                            start and end dates and times of the anomalous event,
+                            partitioning the training and test datasets,
+                            and the choice of the RNN or BLS algorithm.
+                        </p>
+                    </div>
+                </div>
 
-<!-- Part 2 -->
-<h1>Collection Site Selection</h1>
-<hr>
+                <div class="row">
+                    <div class="col-md-10 offset-md-1">
+                        <!-- Select parameters -->
+                        <p class="lead">Parameter selection</p>
+                        <p>site,start_date, end_date, start_date_anomaly, end_date_anomaly, start_time_anomaly, end_time_anomaly, partition</p>
+                        <p>Use dropdown menu or select functions</p>
+                        <p>Button to start and reset</p>
+                    </div>
+                </div>
 
-<!-- Part 3 -->
-<h1>Real-Time Detection for RIPE</h1>
-<p>EChart</p>
-<p>Data preview</p>
-<p>Plot features</p>
-<hr>
+                <div class="row">
+                    <div class="col-md-10 offset-md-1">
+                        <!-- Download results -->
+                        <p class="lead">Download result files</p>
+                        <p>Results are saved in CSV format.</p>
+                    </div>
+                </div>
 
-<!-- Part 4 -->
-<h1>Real-Time Detection for Route Views</h1>
-<p>EChart</p>
-<p>Data preview</p>
-<p>Plot features</p>
-<hr>
-
-<!-- Part 5 -->
-<h1>Download result files</h1>
-<p>Can be finished in the end with login feature</p>
+            </div>
+        </section>
 
 {% endblock %}

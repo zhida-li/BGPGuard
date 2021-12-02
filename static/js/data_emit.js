@@ -1,7 +1,14 @@
 //
 $(document).ready(function () {
     namespace = '/test_conn';
-    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
+
+    var socket = io(namespace);
+    // Start the background thread by pressing the "Connect button"
+    $('#btn_connect').click(function() {
+        socket.emit('main_event');
+    });
+
+    // var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
     socket.on('server_response', function (res) {
         console.log(res.data[0], res.data[1]);
         var t = res.data[0];
@@ -10,4 +17,5 @@ $(document).ready(function () {
         var t2 = res.data[1];
         $('#t2_num').text(t2);
     });
+    
 });

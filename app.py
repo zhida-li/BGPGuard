@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # import external libraries
 from flask import Flask, render_template, url_for, request
-from flask_socketio import SocketIO, emit
+from flask_socketio import SocketIO, emit, disconnect
 from threading import Lock
 import random
 import time
@@ -23,13 +23,15 @@ def index():
 # Real-Time Detection
 @app.route('/bgp_ad_realtime')
 def bgp_ad_realtime():
-    return render_template('bgp_ad_realtime.html', async_mode=socketio.async_mode)
+    header1 = "Real-Time Detection"
+    return render_template('bgp_ad_realtime.html', header1=header1,
+                           async_mode=socketio.async_mode)
 
 
 # Off-Line Classification
 @app.route('/bgp_ad_offline')
 def bgp_ad_offline():
-    header2 = "Experiment"
+    header2 = "Off-Line Classification"
     return render_template('bgp_ad_offline.html', header2=header2)
 
 
@@ -52,7 +54,7 @@ def contact():
 #                                         model_selected=model_choice)
 
 
-@socketio.on('connect', namespace='/test_conn')
+@socketio.on('main_event', namespace='/test_conn')
 def test_connect():
     global thread
     with thread_lock:
