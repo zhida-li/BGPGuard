@@ -76,6 +76,7 @@ $(document).ready(function() {
 
     socket.on('server_response_echart', function(res) {
         console.log("CPU avg:", res.data_cpu[1]);
+        console.log("Count:", res.count);
         update_mychart(res);
     });
 

@@ -65,7 +65,7 @@ def background_thread():
     while True:
         # socketio.sleep(2)
         t = time.strftime('%a, %d %b %Y %H:%M:%S', time.localtime())
-        t2 = random.randint(1, 50)
+        t2 = random.randint(1, 100)
         socketio.emit('server_response',
                       {'data': [t, t2]}, namespace='/test_conn')
 
