@@ -7,22 +7,22 @@ p,a,input,label,textarea,span,ul,li{
     font-family: 'Open Sans', sans-serif;
 }
 
-/* 加入我们的size */
+/* h3 size */
 h3{
     font-size: 35px;
     line-height: 1.5;
 }
 
-/* 所有p是灰色 */
+/* p color */
 p{
     /* color: #707070; */
     color: #3b3b3b;
 }
-/* bootstrap p class. Make a paragraph stand out, 点放一起是同时两个条件成立 */
+/* bootstrap p class. Make a paragraph stand out, use "." with two conditions */
 p.lead{
     color: black;
 }
-/* 图片通常会爆出来，设定宽度 */
+/* good width in general */
 img{
     max-width: 100%;
 }
@@ -31,11 +31,11 @@ img{
 .btn{
     background: #4078d3;
     color: white;
-    /* 上下 左右 */
+    /* TopBottom leftRight */
     padding: 10px 20px;
     border-radius: 10px;
 }
-/* Backtotop button */
+/* BackToTop button */
 #btn_toTop {
     display: none;
     position: fixed;
@@ -135,8 +135,8 @@ header .collapse{
     margin-bottom: 60px;
 }
 
-/* 调整第三个sec的图片里面的字 */
-/* 第1列 */
+/* intro_2modes sec content on the figures */
+/* 1st col */
 #intro_2modes .upper{
     position: relative;
 }
@@ -145,19 +145,19 @@ header .collapse{
     bottom: 24px;
     left: 24px;
 }
-/* 可报名按钮背景 */
+/* click on background */
 #intro_2modes .innertext span{
     background: rgba(255, 255, 255, 0.3);
     padding: 0px 15px;
     border-radius: 20px;
 }
-/* h调整 */
+/* h4 adjustment */
 #intro_2modes .container h4{
     font-size: 22px;
     margin-top: 18px;
 }
 
-/* 第2列 */
+/* 2nd col */
 #intro_2modes .lower h3{
     font-size: 24px;
     margin-top: 12px;
@@ -169,7 +169,7 @@ header .collapse{
     margin-right: 6px;
 }
 #intro_2modes .lower{
-    /* 上 右 下 左 */
+    /* top right bottom left */
     padding: 6px 20px 20px 20px; 
 }
 
@@ -178,7 +178,7 @@ header .collapse{
     box-shadow: 0 0 8px 0 rgba(0,0,0,0.08);
 }
 
-/* intro_2modes secton的a tag 属性去掉 */
+/* intro_2modes all text in black */
 #intro_2modes a{
     color: black;
 }
@@ -205,7 +205,7 @@ header .collapse{
 }
 
 
-/* 整个email section 填充 */
+/* email section padding */
 #email{
     padding: 80px 0px;
 }
@@ -236,20 +236,20 @@ footer ul li a{
 footer ul li a:hover{
     color: #bbb9b9;
 }
-/* email弄成红色 */
+/* email in red */
 footer .col-md-4 a{
     color: #f05f5c;
 }
 
-/* footer中间的连接 词语 */
+/* footer middle list */
 footer ul{
     list-style: none;
     padding: 0px;
     float: left;
-    /* 主页和常见问题列的间隔 */
+    /* element space */
     margin-right: 50px;
 }
-/* 每个li之间的间隔, 放ul没用的 */
+/* space for each li, not working for just put "ul" here */
 footer ul li{
     margin-bottom: 10px;
 }
@@ -259,8 +259,14 @@ footer ul li{
     margin-bottom: 60px;
 }
 #ad_realTime {
-    padding: 80px 0px;
+    /* top right bottom left */
+    padding: 80px 0px 20px 0px;
     background: rgb(248, 248, 248);
+}
+#echart_ripe {
+    /* top right bottom left */
+    padding: 20px 0px 80px 0px;
+    background: white;
 }
 
 /* Off-line classification section */
@@ -271,4 +277,3 @@ footer ul li{
     padding: 80px 0px;
     background: rgb(248, 248, 248);
 }
-

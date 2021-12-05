@@ -26,13 +26,32 @@
                         <!-- Select parameters -->
                         <p class="lead">Parameter selection</p>
                         <p>site,start_date, end_date, start_date_anomaly, end_date_anomaly, start_time_anomaly, end_time_anomaly, partition</p>
-                        <p>Use dropdown menu or select functions</p>
-                        <p>Button to start and reset</p>
+                        <!-- Select site -->
+                        <form action="{# {{ url_for('analyze_offline')}} #}" method="POST">
+                            <div class="input-field">
+                                <select id="role" name="model_choice">
+                                    <option value="" disabled selected>Select Collection Site</option>
+                                    <option value="ripe">RIPE</option>
+                                    <option value="routeviews">Route Views</option>
+                                </select>
+                                <label for="role">Select RIPE or Route Views</label>
+                            </div>
+
+                            <button type="submit">Submit</button>
+                            <button type="reset">Reset</button>
+                        </form>
+
+                        <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+                        <p>Model selected: {{ model_selected}}</p>
+                        <p>Prediction: {{ result_prediction}}</p>
                     </div>
                 </div>
 
                 <div class="row">
+
                     <div class="col-md-10 offset-md-1">
+                        <hr style="height:2px;border-width:0;color:gray;background-color:gray">
                         <!-- Download results -->
                         <p class="lead">Download result files</p>
                         <p>Results are saved in CSV format.</p>

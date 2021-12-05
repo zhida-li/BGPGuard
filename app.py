@@ -10,7 +10,6 @@ import psutil
 # import customized library
 from config import flask_config
 
-
 async_mode, app, socketio, thread, thread_lock = flask_config()
 
 
@@ -41,17 +40,19 @@ def contact():
     return render_template('contact.html')
 
 
-# @app.route('/',methods=["POST"])
-# def analyze():
-#     model_choice = request.form['model_choice']
-#     if request.method == 'POST':
-#         if model_choice == 'ripe':
-#             result_prediction = random.randint(1000, 1500)
-#         elif model_choice == 'routeviews':
-#             result_prediction = random.randint(1500, 2000)
-#     return render_template('index.html',
-#                                         result_prediction=result_prediction,
-#                                         model_selected=model_choice)
+# Received parameters for the off-Line experiment
+@app.route('/bgp_ad_offline', methods=["POST"])
+def analyze_offline():
+    header2 = "Off-Line Classification"
+    model_choice = request.form['model_choice']
+    if request.method == 'POST':
+        if model_choice == 'ripe':
+            result_prediction = random.randint(100, 200)
+        elif model_choice == 'routeviews':
+            result_prediction = random.randint(200, 300)
+    return render_template('bgp_ad_offline.html',
+                           result_prediction=result_prediction,
+                           model_selected=model_choice, header2=header2)
 
 
 @socketio.on('main_event', namespace='/test_conn')
@@ -59,10 +60,10 @@ def test_connect():
     global thread
     with thread_lock:
         if thread is None:
-            thread = socketio.start_background_task(target=background_thread)
+            thread = socketio.start_background_task(target=background_thread_cpu)
 
 
-def background_thread():
+def background_thread_cpu():
     count = 0
     while True:
         # socketio.sleep(2)
@@ -74,8 +75,10 @@ def background_thread():
         socketio.sleep(1)
         count += 1
         t_chart = time.strftime('%H:%M:%S', time.localtime())
-        cpus = psutil.cpu_percent(interval=None, percpu=True)  # percentages for each core
-        cpus = sum(cpus)/len(cpus)
+        cpus = psutil.cpu_percent(interval=None, percpu=True)  # percentages for each core, 10 elements
+        t_chart = 10 * [t_chart]  # 10 time elements
+        # cpus = sum(cpus)/len(cpus) # avg cpu %
+        # generate 3 arrays, announcement, results vs. time.
         socketio.emit('server_response_echart',
                       {'data_cpu': [t_chart, cpus], 'count': count},
                       namespace='/test_conn')

@@ -14,7 +14,7 @@
                 <div class="row">
                     <div class="col-md-10 offset-md-1 text-left">
                         <p>Real-time data retrieving and detection using the update messages collected by
-                            RIPE or Route Views and detection using BLS or RNN pre-trained models.
+                            RIPE or Route Views and detection using pre-trained BLS models.
                         </p>
                     </div>
                 </div>
@@ -22,49 +22,34 @@
                 <!-- Display current time -->
                 <div class="row">
                     <div class="col-md-10 offset-md-1 text-center">
-                        <p class="lead">Current time: <span id="t_currentTime"></span> </p>
-                        <p>Random number for testing:</p><p id="t2_num">t2</p>
+                        <p class="lead">Current time: <span id="t_currentTime"></span></p>
+                        <p>Data collector: rrc04 located at CIXP, Geneva</p>
+                        <p>Testing numbers (1-100) are emitted from the server:</p><p id="t2_num">t2</p>
                         <!-- Emit data JS -->
                         <script src="../static/js/data_emit.js"></script>
                     </div>
                 </div>
+            </div>
+        </section>
 
+        <!-- EChart section for RIPE and Route Views -->
+        <section id="echart_ripe">
+            <div class="container">
                 <div class="row">
                     <div class="col-md-10 offset-md-1">
                         <!-- Select parameters -->
-                        <p class="lead">Parameter selection</p>
-                        <p>site,start_date, end_date, start_date_anomaly, end_date_anomaly, start_time_anomaly, end_time_anomaly, partition</p>
-                        <p>Use dropdown menu or select functions</p>
-                        <p>Button to start and reset</p>
+                        <p class="lead">Retrieving and classify BGP routing records collected by RIPE</p>
                         <!-- Buttons for connection and disconnection -->
                         <div class="btn-toolbar">
                             <button id="btn_connect" type="button" class="btn btn-success mr-3">Connect</button>
-                            <!-- <button id="btn_disconnect" type="button" class="btn btn-secondary">Disconnect</button> -->
+                            <button id="btn_disconnect" type="button" class="btn btn-secondary" disabled>Disconnect</button>
                         </div>
-
-                        <!-- Select site -->
-                        <!-- <hr style="height:2px;border-width:0;color:gray;background-color:gray">
-                        <form action="{# {{ url_for('analyze')}}#} " method="POST">
-                            <div class="input-field">
-                                <select id="role" name="model_choice">
-                                    <option value="" disabled selected>Select Collection Site</option>
-                                    <option value="ripe">RIPE</option>
-                                    <option value="routeviews">Route Views</option>
-                                </select>
-                                <label for="role">Select RIPE or Route Views</label>
-                            </div>
-
-                            <button type="submit">Submit</button>
-                            <button type="reset">Reset</button>
-                        </form>
-
-                        <p>Using {{ model_selected}}</p>
-                        <p>Number {{ result_prediction}}</p> -->
+                        <br>
 
                         <!-- Plotting animation -->
                         <div class="d-flex align-items-center">
                             <strong>Anomaly detecting..</strong>
-                            <div class="spinner-grow text-primary ml-auto" role="status" aria-hidden="true"></div>
+                            <div class="spinner-grow spinner-grow-sm text-primary ml-auto" role="status" aria-hidden="true"></div>
                         </div>
 
                         <!-- EChart placeholder -->
@@ -73,7 +58,7 @@
                         <script src="../static/js/echart_emit.js"></script>
                     </div>
                 </div>
-
+                <!-- <hr style="height:2px;border-width:0;color:gray;background-color:gray"> -->
             </div>
         </section>
 

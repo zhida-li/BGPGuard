@@ -13,12 +13,12 @@ myChart.setOption({
         data:['CPU']
     },
     xAxis: {
-        data: []
+        data: []  //x axis
     },
     yAxis: {},
     series: [{
         name: 'CPU',
-        data: [],
+        data: [],  //y values
         type: 'bar'
     }],
 
@@ -33,9 +33,16 @@ myChart.setOption({
 });
 
 
-var time = ["","","","","","","","","","", "","","","","","","","","",""],
-    cpu = [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0]
+// var time = ["","","","","","","","","","", "","","","","","","","","","",
+//             "","","","","","","","","","", "","","","","","","","","",""],
+//     cpu = [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,
+//             0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0]
 
+var time = Array(40).fill(""),
+    cpu = Array(40).fill(0)
+
+// console.log("before t (chart):", time);
+// console.log("before cpu (chart):", cpu);
 
 // callback function
 var update_mychart = function (res) {
@@ -44,11 +51,21 @@ var update_mychart = function (res) {
     myChart.hideLoading();
 
     // prepare data
-    time.push(res.data_cpu[0]);  //push() add new item to an array
-    cpu.push(parseFloat(res.data_cpu[1]));
-    if (time.length >= 10){
-        time.shift();
-        cpu.shift();
+    // time.push(res.data_cpu[0]);  //push() add new item to an array
+    // cpu.push(parseFloat(res.data_cpu[1]));
+
+    // push new array to the end of the array, returns the new length
+    // const count_chart =  Array.prototype.push.apply(time, res.data_cpu[0]);
+    Array.prototype.push.apply(time, res.data_cpu[0]);
+    Array.prototype.push.apply(cpu, res.data_cpu[1]);
+    console.log("push t (chart):", time);
+    console.log("push cpu (chart):", cpu);
+    if (time.length >= 60){
+        // time.shift();
+        // cpu.shift();
+        // remove the first 10 elements
+        time.splice(0,10);
+        cpu.splice(0,10);
     }
 
     // fill the data
@@ -75,9 +92,21 @@ $(document).ready(function() {
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
 
     socket.on('server_response_echart', function(res) {
-        console.log("CPU avg:", res.data_cpu[1]);
-        console.log("Count:", res.count);
+        console.log("CPU avg (server):", res.data_cpu[1]);
+        console.log("CPU t (server):", res.data_cpu[0]);
+        console.log("Count (server):", res.count);
         update_mychart(res);
+        // repeat with the interval of 10 seconds
+        // let timerId = setInterval(() => console.clear(), 10*1000);
+        // let timerId = setTimeout(function reset_console() {
+        //   console.clear();
+        //   timerId = setTimeout(reset_console, 2*1000); // (*)
+        // }, 10*1000);
     });
 
 });
+
+
+// timer = 5;
+// timer = setTimeout(function() {
+//     console.clear()}, timer * 1000)
