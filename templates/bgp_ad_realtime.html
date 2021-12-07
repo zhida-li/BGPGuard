@@ -22,13 +22,25 @@
                 <!-- Display current time -->
                 <div class="row">
                     <div class="col-md-10 offset-md-1 text-center">
-                        <p class="lead">Current time: <span id="t_currentTime"></span></p>
+                        <p class="lead">Coordinated Universal Time (UTC): <span id="t_utc"></span></p>
                         <p>Data collector: rrc04 located at CIXP, Geneva</p>
-                        <p>Testing numbers (1-100) are emitted from the server:</p><p id="t2_num">t2</p>
+                    </div>
+                </div>
+
+                <!-- Display results -->
+                <div class="row">
+                    <div class="col-md-8 offset-md-2 text-left">
+                        <p class="lead">Classification results:</p>
+                        <p id="results1_p">Results for the 1st minute</p>
+                        <p id="results2_p">Results for the 2nd minute</p>
+                        <p id="results3_p">Results for the 3rd minute</p>
+                        <p id="results4_p">Results for the 4th minute</p>
+                        <p id="results5_p">Results for the 5th minute</p>
                         <!-- Emit data JS -->
                         <script src="../static/js/data_emit.js"></script>
                     </div>
                 </div>
+
             </div>
         </section>
 
@@ -52,10 +64,15 @@
                             <div class="spinner-grow spinner-grow-sm text-primary ml-auto" role="status" aria-hidden="true"></div>
                         </div>
 
-                        <!-- EChart placeholder -->
+                        <!-- EChart placeholder: results -->
+                        <div id="echart_results" class="col-md-12" style="height:500px;border:1px solid #ccc;padding:10px;"></div>
+                        <!-- Data direction: Server => user, EChart JS -->
+                        <script src="../static/js/echart_emit_results.js"></script>
+                        <br>
+                        <!-- EChart placeholder: cpu-->
                         <div id="echart_cpu" class="col-md-12" style="height:500px;border:1px solid #ccc;padding:10px;"></div>
                         <!-- Data direction: Server => user, EChart JS -->
-                        <script src="../static/js/echart_emit.js"></script>
+                        <script src="../static/js/echart_emit_cpu.js"></script>
                     </div>
                 </div>
                 <!-- <hr style="height:2px;border-width:0;color:gray;background-color:gray"> -->

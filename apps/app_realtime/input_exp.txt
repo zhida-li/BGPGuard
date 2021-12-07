@@ -1,0 +1,16 @@
+{  
+	'site': 'RIPE',							# Collection site
+
+	'start_date': '20050523',				# Date start for entire dataset
+	'end_date': '20050527',					# Date end for entire dataset
+
+	'start_date_anomaly': '20050525',		# Date start for anomalous event
+	'end_date_anomaly': '20050525',			# Date end for anomalous event
+	'start_time_anomaly': '0400',			# Time start for anomalous event
+	'end_time_anomaly': '1159',				# Time end for anomalous event
+
+	'cut_pct': '64',						# Partition percentage of the anomaly for training and test datasets
+
+	'rnn_seq': 20							# Sequence length for RNN algorithms
+}
+

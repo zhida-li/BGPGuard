@@ -38,8 +38,8 @@ myChart.setOption({
 //     cpu = [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,
 //             0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0]
 
-var time = Array(40).fill(""),
-    cpu = Array(40).fill(0)
+var time = Array(100).fill(""),
+    cpu = Array(100).fill(0)
 
 // console.log("before t (chart):", time);
 // console.log("before cpu (chart):", cpu);
@@ -60,7 +60,7 @@ var update_mychart = function (res) {
     Array.prototype.push.apply(cpu, res.data_cpu[1]);
     console.log("push t (chart):", time);
     console.log("push cpu (chart):", cpu);
-    if (time.length >= 60){
+    if (time.length >= 100){
         // time.shift();
         // cpu.shift();
         // remove the first 10 elements
@@ -91,8 +91,8 @@ $(document).ready(function() {
     namespace = '/test_conn';
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
 
-    socket.on('server_response_echart', function(res) {
-        console.log("CPU avg (server):", res.data_cpu[1]);
+    socket.on('server_response_echart_cpu', function(res) {
+        console.log("CPU (server):", res.data_cpu[1]);
         console.log("CPU t (server):", res.data_cpu[0]);
         console.log("Count (server):", res.count);
         update_mychart(res);

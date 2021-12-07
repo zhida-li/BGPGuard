@@ -1,0 +1,169 @@
+# Download update messages from RIPE or RouteViews
+# May. 04, 2020
+# import time
+import os
+from progress_bar import progress_bar
+from subprocess_cmd import subprocess_cmd
+from time_locator import time_locator_multi
+
+
+# Name of the update_message_file generation
+def updateMessageName(year, month, day, hour, minute):
+    # updates.YYYYMMDD.HHMM.gz,  minute: 5 minutes interval
+
+    data_date = "%s.%s" % (year, month)  # used for data_link in Function data_downloader(). 
+
+    # Code below also works
+    # update_message_file = 'updates.' + str(year) + str(month)+ str(day)+ '.'+ str(hour)+ str(minute)+'.'+'gz'
+    update_message_file = "updates.%s%s%s.%s%s" % (year, month, day, hour, minute)
+    return update_message_file, data_date  # these two outputs are string
+
+
+# Download specific file from RIPE or RouteViews
+# rcc04: Geneva
+def data_downloader_single(update_message_file, data_date, site, collector_ripe='rrc04',
+                           collector_routeviews='route-views2'):
+    data_file = update_message_file
+
+    if site == 'RIPE':
+        data_link = "http://data.ris.ripe.net/%s/%s/%s.gz" % (collector_ripe, data_date, data_file)
+
+        # Update messgae files will be downloaded in "data_ripe" folder: --directory-prefix
+        subprocess_cmd("chmod -R 777 ./apps/app_realtime/;\
+                        cd apps/app_realtime/; wget -np --accept=gz %s \
+                        --directory-prefix=data_ripe ; \
+                        cd data_ripe ; \
+                        chmod +x name-change-script.sh ;\
+                        sh ./name-change-script.sh ; \
+                        echo '=> >>>>>>>>>> > > > > > Extension changed (gz to Z)' " % (data_link))
+
+        subprocess_cmd("cd apps/app_realtime/; cd data_ripe ; \
+                        chmod +x zebra-script.sh ;\
+                        sh ./zebra-script.sh")
+
+        progress_bar(time_sleep=0.02, status_p='Converting')
+
+        subprocess_cmd("echo ' '; \
+                        echo '=> >>>>>>>>>> > > > > > DUMP generated (MRT to ASCII)' ")
+
+        # Move .Z file
+        subprocess_cmd("cd apps/app_realtime/; mv ./data_ripe/%s.Z ./data_ripe/temp/" % (data_file))
+
+    # collector_routeviews is not finished (only use 'route-views2' now)
+    elif site == 'RouteViews':
+        data_link2 = "http://archive.routeviews.org/bgpdata/%s/UPDATES/%s.bz2" % (data_date, data_file)
+
+        # Update messgae files will be downloaded in "data_routeviews" folder: --directory-prefix
+        subprocess_cmd("wget -np --accept=bz2 %s \
+                        --directory-prefix=data_routeviews ; \
+                        cd data_routeviews ;" % (data_link2))
+
+        subprocess_cmd("cd data_routeviews ; \
+                        chmod +x zebra-script.sh ;\
+                        sh ./zebra-script.sh ; \
+                        echo '=> >>>>>>>>>> > > > > > Decompressed bz2' ")
+
+        progress_bar(time_sleep=0.02, status_p='Converting')
+
+        subprocess_cmd("echo ' '; \
+                        echo '=> >>>>>>>>>> > > > > > DUMP generated (MRT to ASCII)' ")
+
+        # Move Decompressed file
+        subprocess_cmd("mv ./data_routeviews/%s ./data_routeviews/temp/" % (data_file))
+    else:
+        print("Wrong name")
+        exit()
+
+
+# Multiple files (days)
+def data_downloader_multi(start_date, end_date, site, collector_ripe='rrc04', collector_routeviews='route-views2'):
+    # updates.YYYYMMDD.HHMM.gz
+    # data_date = "%s.%s" % (year, month)
+    # update_message_file = "updates.%s%s%s.%s%s" % (year, month, day, hour, minute)
+    date_list = time_locator_multi(start_date, end_date)
+    print(date_list)
+
+    # RIPE
+    if site == 'RIPE':
+        for date_i in date_list:
+            # Create folders for each day
+            date_i_folder = './data_ripe/%s' % date_i
+            if not os.path.exists(date_i_folder):
+                os.makedirs(date_i_folder)
+                print("\n RIPE => >>>>>>>>>> Folder %s has been created." % (date_i))
+
+            # Move dump parser to each folder
+            subprocess_cmd("cd data_ripe/ ; \
+                            cp name-change-script.sh zebra-dump-parser-modified.pl zebra-script.sh ./%s ; \
+                            cd %s/ " % (date_i, date_i))
+
+            # Download
+            year = date_i[0:4]
+            month = date_i[4:6]
+            data_date = "%s.%s" % (year, month)
+
+            data_link = "http://data.ris.ripe.net/%s/%s/" % (collector_ripe, data_date)
+            data_file = 'updates.%s.*.gz' % date_i
+            data_file_rm = 'updates.%s.*.Z' % date_i
+
+            subprocess_cmd("cd data_ripe/%s/ ; \
+                            wget -e robots=off -r -np -nd -A '%s' %s ;" % (date_i, data_file, data_link))
+
+            # Generate DUMP using Zebra
+            subprocess_cmd("cd data_ripe/%s/ ; \
+                            chmod +x name-change-script.sh ; sh ./name-change-script.sh ; \
+                            echo '=> >>>>>>>>>> > > > > > Extension changed (gz to Z)' ;\
+                            chmod +x zebra-script.sh ; sh ./zebra-script.sh ; \
+                            mv DUMP DUMP_%s" % (date_i, date_i))
+
+            progress_bar(time_sleep=0.02, status_p='Converting')
+
+            subprocess_cmd("echo ' '; \
+                            echo '=> >>>>>>>>>> > > > > > DUMP generated (MRT to ASCII)' ")
+
+            # Remove .Z file
+            subprocess_cmd("rm ./data_ripe/%s/%s" % (date_i, data_file_rm))
+
+    # RouteViews
+    # collector_routeviews is not finished (only use 'route-views2' now)
+    elif site == 'RouteViews':
+        for date_i in date_list:
+            # Create folders for each day
+            date_i_folder = './data_routeviews/%s' % date_i
+            if not os.path.exists(date_i_folder):
+                os.makedirs(date_i_folder)
+                print("\n RouteViews => >>>>>>>>>> Folder %s has been created." % (date_i))
+
+            # Move dump parser to each folder
+            subprocess_cmd("cd data_routeviews/ ; \
+                            cp zebra-dump-parser-modified.pl zebra-script.sh ./%s ; \
+                            cd %s/ " % (date_i, date_i))
+
+            # Download
+            year = date_i[0:4]
+            month = date_i[4:6]
+            data_date = "%s.%s" % (year, month)
+
+            data_link = "http://archive.routeviews.org/bgpdata/%s/UPDATES/" % (data_date)
+            data_file = 'updates.%s.*.bz2' % date_i
+            data_file_rm = 'updates.%s.*' % date_i
+
+            subprocess_cmd("cd data_routeviews/%s/ ; \
+                            wget -e robots=off -r -np -nd -A '%s' %s ;" % (date_i, data_file, data_link))
+
+            # Generate DUMP using Zebra
+            subprocess_cmd("cd data_routeviews/%s/ ; \
+                            chmod +x zebra-script.sh ; sh ./zebra-script.sh ; \
+                            echo '=> >>>>>>>>>> > > > > > Decompressed bz2' ; \
+                            mv DUMP DUMP_%s" % (date_i, date_i))
+
+            progress_bar(time_sleep=0.02, status_p='Converting')
+
+            subprocess_cmd("echo ' '; \
+                            echo '=> >>>>>>>>>> > > > > > DUMP generated (MRT to ASCII)' ")
+
+            # Remove .Z file
+            subprocess_cmd("rm ./data_routeviews/%s/%s" % (date_i, data_file_rm))
+    else:
+        print("Wrong name")
+        exit()
