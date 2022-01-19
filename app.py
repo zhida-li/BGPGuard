@@ -28,6 +28,7 @@ from BLS_SFU_CNL_V101.BLS_demo import bls_demo
 # Flask configuration
 async_mode, app, socketio, thread, thread_lock = flask_config()
 
+
 # Home
 @app.route('/')
 def index():
