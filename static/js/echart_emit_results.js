@@ -3,33 +3,66 @@
 // var myChart = echarts.init(document.getElementById('echart_cpu'));
 var chartDom2 = document.getElementById('echart_results');
 var myChart2 = echarts.init(chartDom2);
+// initial load the animation
+myChart2.showLoading();
 
 myChart2.setOption({
     title: {
         text: 'Number of announcement vs. time'
     },
+    grid: [
+    {
+      bottom: '55%',  show: true
+    },
+    {
+      top: '55%',  show: true
+    }
+    ],
     tooltip: {},
     legend: {
-        data:['Number of announcement']
+        data:['Number of announcement', 'test2']
     },
-    xAxis: {
-        data: []  //x axis
-    },
-    yAxis: {},
-    series: [{
+    xAxis: [
+        {data: [], gridIndex: 0  //x axis
+        },
+        {data: [], gridIndex: 1
+        }
+    ],
+    yAxis: [
+        {gridIndex: 0}, {gridIndex: 1}
+    ],
+    series: [
+        {
         name: 'Number of announcement',
         data: [],  //y values
-        type: 'bar'
-    }],
+        type: 'bar',
+        xAxisIndex: 0,
+        yAxisIndex: 0
+    },
+        {
+        name: 'test2',
+        data: [],  //y values
+        type: 'bar',
+        xAxisIndex:1,
+        yAxisIndex:1
+        }
+    ],
 
       visualMap: [
-    {
+      {
       show: true,  // bar reference
       type: 'continuous',
       seriesIndex: 0,
       min: 0,
       max: 6e3
     }]
+    //   {
+    //   show: false,  // bar reference
+    //   type: 'continuous',
+    //   seriesIndex: 1,
+    //   min: 0,
+    //   max: 6e3
+    // }]
 });
 
 
@@ -55,20 +88,31 @@ var update_mychart2 = function (res) {
 
     // fill the data
     myChart2.setOption({
-        xAxis: {
-            data: t_ann
+        xAxis: [{
+            data: t_ann,
+            show: true,  //false will remove the xaxis
+            gridIndex: 0
         },
+        {
+            data: t_ann,
+            gridIndex: 1,
+        }],
         series: [{
             name: 'Number of announcement', // related to the data name in legend
-            data: bgp_ann
+            data: bgp_ann,
+            xAxisIndex: 0,
+            yAxisIndex: 0
+        },
+        {
+            name: 'test2', // related to the data name in legend
+            data: bgp_ann,
+            xAxisIndex:1,
+            yAxisIndex:1
         }]
 
     });
 
 };
-
-// initial load the animation
-myChart2.showLoading();
 
 
 // establish socket connection, wait for the server push data, use the callback function update chart
