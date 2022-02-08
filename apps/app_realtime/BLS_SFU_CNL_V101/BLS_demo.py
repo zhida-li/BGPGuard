@@ -143,25 +143,25 @@ def bls_demo():
 
     # string to web
     web_results = []
+    test_hour_chart = []
+    test_min_chart = []
     test_hour, test_min = test_dataset[:, 1], test_dataset[:, 2]
     for label, hour, minute in zip(predicted, test_hour, test_min):
         hour, minute = int(hour), int(minute)
         hour = str(hour)
-        if len(hour) == 2:
-            pass
-        else:
+        if len(hour) == 1:
             hour = '0' + hour
         minute = str(minute)
-        if len(minute) == 2:
-            pass
-        else:
+        if len(minute) == 1:
             minute = '0' + minute
         if label == 1:
-            print("\n Test time (hour:minute) %s : %s => An anomaly is detected!" % (hour, minute))
-            web_results.append("Test time (hour:minute) %s : %s => An anomaly is detected!" % (hour, minute))
+            print("\n Test time (HH:MM) %s : %s => An anomaly is detected!" % (hour, minute))
+            web_results.append("Test time (HH:MM) %s : %s => An anomaly is detected!" % (hour, minute))
         else:
-            print("\n Test time (hour:minute) %s : %s => Normal traffic" % (hour, minute))
-            web_results.append("Test time (hour:minute) %s : %s => Normal traffic" % (hour, minute))
-    return predicted_list, test_hour, test_min, web_results
+            print("\n Test time (HH:MM) %s : %s => Normal traffic" % (hour, minute))
+            web_results.append("Test time (HH:MM) %s : %s => Normal traffic" % (hour, minute))
+        test_hour_chart.append(hour)
+        test_min_chart.append(minute)
+    return predicted_list, test_hour_chart, test_min_chart, web_results
 
 # bls_demo()

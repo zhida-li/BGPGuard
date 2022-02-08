@@ -6,42 +6,51 @@ var myChart = echarts.init(chartDom);
 
 myChart.setOption({
     title: {
-        text: 'CPU real-time usage (%)'
+        text: 'Multi-core CPU usage vs. time'
     },
     tooltip: {},
-    legend: {
-        data:['CPU']
-    },
+    // legend: {
+    //     data: ['CPU']
+    // },
     xAxis: {
-        data: []  //x axis
+        data: [],  //x axis
+        name: 'Time (min)',
+        nameLocation: 'middle',
+        nameGap: 25
     },
-    yAxis: {},
+    yAxis: {
+        name: 'CPU usage (%)',
+        nameLocation: 'middle',
+        nameGap: 35
+    },
     series: [{
         name: 'CPU',
         data: [],  //y values
         type: 'bar'
     }],
 
-    //   visualMap: [
-    // {
-    //   show: false,
-    //   type: 'continuous',
-    //   seriesIndex: 0,
-    //   min: 0,
-    //   max: 30
-    // }]
+    visualMap: [
+        {
+            show: true,
+            type: 'continuous',
+            seriesIndex: 0,
+            min: 0,
+            max: 100
+        }
+    ]
 });
 
 
-// var time = ["","","","","","","","","","", "","","","","","","","","","",
+// var t_cpu = ["","","","","","","","","","", "","","","","","","","","","",
 //             "","","","","","","","","","", "","","","","","","","","",""],
 //     cpu = [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,
 //             0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0]
 
-var time = Array(100).fill(""),
+
+var t_cpu = Array(100).fill(""),
     cpu = Array(100).fill(0)
 
-// console.log("before t (chart):", time);
+// console.log("before t (chart):", t_cpu);
 // console.log("before cpu (chart):", cpu);
 
 // callback function
@@ -51,27 +60,27 @@ var update_mychart = function (res) {
     myChart.hideLoading();
 
     // prepare data
-    // time.push(res.data_cpu[0]);  //push() add new item to an array
+    // t_cpu.push(res.data_cpu[0]);  //push() add new item to an array
     // cpu.push(parseFloat(res.data_cpu[1]));
 
     // push new array to the end of the array, returns the new length
-    // const count_chart =  Array.prototype.push.apply(time, res.data_cpu[0]);
-    Array.prototype.push.apply(time, res.data_cpu[0]);
+    // const count_chart =  Array.prototype.push.apply(t_cpu, res.data_cpu[0]);
+    Array.prototype.push.apply(t_cpu, res.data_cpu[0]);
     Array.prototype.push.apply(cpu, res.data_cpu[1]);
-    console.log("push t (chart):", time);
+    console.log("push t (chart):", t_cpu);
     console.log("push cpu (chart):", cpu);
-    if (time.length >= 100){
-        // time.shift();
+    if (t_cpu.length >= 100) {
+        // t_cpu.shift();
         // cpu.shift();
         // remove the first 10 elements
-        time.splice(0,10);
-        cpu.splice(0,10);
+        t_cpu.splice(0, 10);
+        cpu.splice(0, 10);
     }
 
     // fill the data
     myChart.setOption({
         xAxis: {
-            data: time
+            data: t_cpu
         },
         series: [{
             name: 'CPU', // related to the data name in legend
@@ -87,11 +96,11 @@ myChart.showLoading();
 
 
 // establish socket connection, wait for the server push data, use the callback function update chart
-$(document).ready(function() {
+$(document).ready(function () {
     namespace = '/test_conn';
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
 
-    socket.on('server_response_echart_cpu', function(res) {
+    socket.on('server_response_echart_cpu', function (res) {
         console.log("CPU (server):", res.data_cpu[1]);
         console.log("CPU t (server):", res.data_cpu[0]);
         console.log("Count (server):", res.count);

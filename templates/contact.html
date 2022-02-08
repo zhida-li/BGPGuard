@@ -1,62 +1,64 @@
 {% extends "layout.html" %}
 
 {% block content %}
-        <!-- Author, 8 columns, offset 2 columns, empty 2 columns -->
-        <section id="intro_author">
-            <div class="container">
-                <div class="row">
-                    <!-- align left by default, offest-md-->
-                    <div class="col-md-8 offset-md-2 text-center">
-                        <!-- header -->
-                        <h3>Introduction of the Author</h3>
-                        <!-- can div 12 col inside this 8 col -->
-                        <!-- left 4col -->
-                        <div class="row">
-                            <div class="col-md-4">
-                                <img src="../static/img/profile.png">
-                                <h5>Zhida Li</h5>
-                            </div>
-                            <!-- right 8col -->
-                            <div class="col-md-8 text-left">
-                                <p class="lead">Ph.D. Candidate | Research Assistant</p>
-                                <p>Zhida received the B.E. and M.Eng.Sc. degrees in Electrical Engineering and Microelectronic Design
-                                    from the University College Cork, Ireland, in 2011 and 2013, respectively.
-                                    He is currently pursuing the Ph.D. degree at Simon Fraser University.</p>
-                                <p>His current research project deals with development of fast machine learning algorithms
-                                    and a real-time system for detecting network anomalies.
-                                    He was a Program Committee Member of HPCC 2020 and Session Chair at CPSCom 2020.
-                                    He served as the Vice-Chair and Chair of the IEEE SFU Student Branch (2020-2021).</p>
-                            </div>
+    <!-- Author, 8 columns, offset 2 columns, empty 2 columns -->
+    <section id="intro_author">
+        <div class="container">
+            <div class="row">
+                <!-- align left by default, offest-md-->
+                <div class="col-md-8 offset-md-2 text-center">
+                    <!-- header -->
+                    <h3>Introduction of the Author</h3>
+                    <!-- can div 12 col inside this 8 col -->
+                    <!-- left 4col -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="../static/img/profile.png">
+                            <h5>Zhida Li</h5>
+                        </div>
+                        <!-- right 8col -->
+                        <div class="col-md-8 text-left">
+                            <p class="lead">Ph.D. Candidate | Research Assistant</p>
+                            <p>Zhida received the B.E. and M.Eng.Sc. degrees in Electrical Engineering and
+                                Microelectronic Design
+                                from the University College Cork, Ireland, in 2011 and 2013, respectively.
+                                He is currently pursuing the Ph.D. degree at Simon Fraser University.</p>
+                            <p>His current research project deals with development of fast machine learning algorithms
+                                and a real-time system for detecting network anomalies.
+                                He was a Program Committee Member of HPCC 2020 and Session Chair at CPSCom 2020.
+                                He served as the Vice-Chair and Chair of the IEEE SFU Student Branch (2020-2021).</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
 
-            <!-- Email section -->
-        <section id="email">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8 offset-md-2 text-center">
-                        <h3>Join Our Email List</h3>
-                    </div>
+    <!-- Email section -->
+    <section id="email">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 offset-md-2 text-center">
+                    <h3>Join Our Email List</h3>
                 </div>
-                <!-- input -->
-                <div class="row">
-                    <div class="col-md-8 offset-md-2 text-left">
-                        <p>Kindly let us inform you of our latest research</p>
-                        <div class="input-group input-group-lg">
-                            <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm"
-                            placeholder="Your email address">
-                        </div>
-                        <br>
-                        <!-- button -->
-                        <a class="btn btn-primary btn-md" href="#" role="button">Send</a>
-                    </div>
-                </div>
-
             </div>
-        </section>
+            <!-- input -->
+            <div class="row">
+                <div class="col-md-8 offset-md-2 text-left">
+                    <p>Kindly let us inform you of our latest research</p>
+                    <div class="input-group input-group-lg">
+                        <input type="text" class="form-control" aria-label="Large"
+                               aria-describedby="inputGroup-sizing-sm"
+                               placeholder="Your email address">
+                    </div>
+                    <br>
+                    <!-- button -->
+                    <a class="btn btn-primary btn-md" href="#" role="button">Send</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
 
 {% endblock %}

@@ -1,64 +1,164 @@
 {% extends "layout.html" %}
 
 {% block content %}
-        <!-- Off-line classification section -->
-        <section id="ad_offLine">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <h3>{{ header2 }}</h3>
-                    </div>
+    <!-- Off-line classification section -->
+    <section id="ad_offLine">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h3>{{ header2 }}</h3>
                 </div>
-
-                <!-- introduction -->
-                <div class="row">
-                    <div class="col-md-10 offset-md-1 text-left">
-                        <p>Customizing off-line experiments by specifying the collection site,
-                            start and end dates and times of the anomalous event,
-                            partitioning the training and test datasets,
-                            and the choice of the RNN or BLS algorithm.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-10 offset-md-1">
-                        <!-- Select parameters -->
-                        <p class="lead">Parameter selection</p>
-                        <p>site,start_date, end_date, start_date_anomaly, end_date_anomaly, start_time_anomaly, end_time_anomaly, partition</p>
-                        <!-- Select site -->
-                        <form action="{# {{ url_for('analyze_offline')}} #}" method="POST">
-                            <div class="input-field">
-                                <select id="role" name="model_choice">
-                                    <option value="" disabled selected>Select Collection Site</option>
-                                    <option value="ripe">RIPE</option>
-                                    <option value="routeviews">Route Views</option>
-                                </select>
-                                <label for="role">Select RIPE or Route Views</label>
-                            </div>
-
-                            <button type="submit">Submit</button>
-                            <button type="reset">Reset</button>
-                        </form>
-
-                        <hr style="height:2px;border-width:0;color:gray;background-color:gray">
-
-                        <p>Model selected: {{ model_selected}}</p>
-                        <p>Prediction: {{ result_prediction}}</p>
-                    </div>
-                </div>
-
-                <div class="row">
-
-                    <div class="col-md-10 offset-md-1">
-                        <hr style="height:2px;border-width:0;color:gray;background-color:gray">
-                        <!-- Download results -->
-                        <p class="lead">Download result files</p>
-                        <p>Results are saved in CSV format.</p>
-                    </div>
-                </div>
-
             </div>
-        </section>
+
+            <!-- Introduction -->
+            <div class="row">
+                <div class="col-md-10 offset-md-1 text-left">
+                    <p>Customizing off-line experiments by specifying the collection site,
+                        start and end dates and times of the anomalous event,
+                        partitioning the training and test datasets,
+                        and the choice of the RNN or BLS algorithm.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parameter selection section for RIPE and Route Views -->
+    <section id="offLine_ripe">
+        <div class="container">
+
+            <!-- Display current time -->
+            <div class="row">
+                <div class="col-md-10 offset-md-1 text-center">
+                    <p class="lead"><i class="far fa-clock" style="margin-right:3px;"></i>
+                        Local Time: <span id="MyClockDisplay" class="clock_digital"
+                                          style="margin-left:5px;"
+                                          onload="showTime()"></span>
+                        | <span id="current_date"></span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-10 offset-md-1">
+                    <!-- Select parameters -->
+                    <p class="lead">Parameter Selections</p>
+
+                    <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+                    <!-- Forms -->
+                    <form action="{# {{ url_for('analyze_offline')}} #}" method="POST">
+
+                        <div class="form-row">
+                            <label class="col-form-label col-md-3 pt-0 font-italic">Select a collection site:</label>
+                            <div class="col-md-9">
+                                <div class="form-check form-check-inline">
+                                    <!-- radio type is for selecting one option from many -->
+                                    <input class="form-check-input label-to-bold-if-checked" type="radio"
+                                           id="select_ripe" name="site_choice" value="ripe" checked>
+                                    <label class="form-check-label label-check" for="select_ripe">
+                                        RIPE
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input label-to-bold-if-checked" type="radio"
+                                           id="select_routeviews" name="site_choice" value="routeviews">
+                                    <label class="form-check-label label-check" for="select_routeviews">
+                                        Route Views
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="s_date" class="font-italic">Start date for the entire task:</label>
+                                <input type="text" class="form-control" id="s_date"
+                                       name="start_date_key" placeholder="Format: YYYYMMDD. Example: 20050523">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="e_date" class="font-italic">End date for the entire task:</label>
+                                <input type="text" class="form-control" id="e_date"
+                                       name="end_date_key" placeholder="YYYYMMDD. Example: 20050527">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="s_date_ano" class="font-italic">Start date for the anomalous event:</label>
+                                <input type="text" class="form-control" id="s_date_ano"
+                                       name="start_date_anomaly_key" placeholder="YYYYMMDD. Example: 20050525">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="e_date_ano" class="font-italic">End date for the anomalous event:</label>
+                                <input type="text" class="form-control" id="e_date_ano"
+                                       name="end_date_anomaly_key" placeholder="YYYYMMDD. Example: 20050525">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="s_t_ano" class="font-italic">Start time for the anomalous event:</label>
+                                <input type="text" class="form-control" id="s_t_ano"
+                                       name="start_time_anomaly_key" placeholder="Format: HHMM. Example: 0400">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="e_t_ano" class="font-italic">End time for the anomalous event:</label>
+                                <input type="text" class="form-control" id="e_t_ano"
+                                       name="end_time_anomaly_key" placeholder="HHMM. Example: 1159">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="cut_percentage" class="font-italic">Partition percentage (train &
+                                    test):</label>
+                                <input type="text" class="form-control" id="cut_percentage"
+                                       name="cut_pct_key" placeholder="Format: Two integers; sum is 10. Example: 64">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="rnn_seq_len" class="font-italic">Sequence length for RNN algorithms if
+                                    needed:</label>
+                                <input type="text" class="form-control" id="rnn_seq_len"
+                                       name="rnn_seq_key" placeholder="Format: Integer divisible by 10. Example: 20">
+                            </div>
+                        </div>
+
+                        <!-- Buttons for submit and reset -->
+                        <div class="btn-toolbar">
+                            <button id="btn_submit" type="submit" class="btn btn-success mr-3">Submit</button>
+                            <button id="btn_reset" type="reset" class="btn btn-secondary">Reset</button>
+                        </div>
+                    </form>
+
+                    <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
+                    <p>Collection site selected: {{ site_selected }}</p>
+                    <p>Prediction: {{ result_prediction }}</p>
+                </div>
+            </div>
+
+            <!-- Download results -->
+            <div class="row">
+                <div class="col-md-10 offset-md-1">
+                    <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+                    <p class="lead">Download result files</p>
+
+                    <span>
+                        <a href="../apps/app_realtime/data_test/DUMP_out.txt" download>
+                            <button class="btn btn-success"><i class="fa fa-file-download"></i> Download</button>
+                        </a>
+                        Feature matrix
+                    </span>
+
+                </div>
+            </div>
+
+            </p>
+    </section>
 
 {% endblock %}

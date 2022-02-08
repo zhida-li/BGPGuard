@@ -56,7 +56,7 @@ def app_realtime(ALGOs='BLS'):
 
 
 ############################ Running ############################
-predicted, test_hour, test_min = app_realtime()
+predicted, test_hour, test_min = app_realtime()  # test the real-time function
 print("predicted", predicted)
 print("test_hour", test_hour)
 print("test_min", test_min)
