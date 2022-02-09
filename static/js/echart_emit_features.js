@@ -99,8 +99,8 @@ myChart2.setOption({
 
 
 var t_ann = Array(40).fill(""),
-    bgp_ann = Array(40).fill(0),
-    bgp_wd = Array(40).fill(0)
+    bgp_ann = Array(40).fill(""),
+    bgp_wd = Array(40).fill("")
 
 // callback function
 var update_mychart2 = function (res) {

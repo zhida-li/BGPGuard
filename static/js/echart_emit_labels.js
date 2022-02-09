@@ -38,7 +38,8 @@ myChart0.setOption({
         {
             name: 'Predicted class',
             data: [],  //y values
-            type: 'line',
+            type: 'scatter',
+            symbolSize: 8,
             color: 'rgb(255, 70, 131)'
         },
     ],
@@ -46,7 +47,7 @@ myChart0.setOption({
 
 
 var t_ann2 = Array(40).fill(""),
-    bgp_labels = Array(40).fill(0)
+    bgp_labels = Array(40).fill("")
 
 // callback function
 var update_mychart0 = function (res) {
@@ -73,7 +74,7 @@ var update_mychart0 = function (res) {
 
         series: [
             {
-                name: 'Regular (0); Anomaly (1)', // related to the data name in legend
+                name: 'Predicted class', // related to the data name in legend
                 data: bgp_labels,
             }]
 
