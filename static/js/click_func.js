@@ -78,12 +78,12 @@ $(function () {
 $('#btn_submit').click(function () {
   var current_progress = 0;
   var interval = setInterval(function() {
-      current_progress += 10;
+      current_progress += 1;
       $("#dynamic_bar")
       .css("width", current_progress + "%")
       .attr("aria-valuenow", current_progress)
       .text(current_progress + "% Please wait for the results...");
-      if (current_progress >= 90)
+      if (current_progress >= 99)
           clearInterval(interval);
-  }, 500);  //0.5s
+  }, 50);  //0.5s
 });
