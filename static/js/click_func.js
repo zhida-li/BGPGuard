@@ -73,3 +73,17 @@ showTime();
 $(function () {
   $('[data-toggle="popover"]').popover()
 })
+
+// Off-line classification section: Progress bar when click "Submit"
+$('#btn_submit').click(function () {
+  var current_progress = 0;
+  var interval = setInterval(function() {
+      current_progress += 10;
+      $("#dynamic_bar")
+      .css("width", current_progress + "%")
+      .attr("aria-valuenow", current_progress)
+      .text(current_progress + "% Please wait for the results...");
+      if (current_progress >= 90)
+          clearInterval(interval);
+  }, 500);  //0.5s
+});

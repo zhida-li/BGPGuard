@@ -322,7 +322,7 @@ footer ul li {
 }
 
 /*make the option bold after selecting */
-#ad_offLine .label-to-bold-if-checked:checked + .label-check {
+#offLine_ripe .label-to-bold-if-checked:checked + .label-check {
     font-weight: bold;
     font-size: 150%;
 }

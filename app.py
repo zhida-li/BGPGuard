@@ -75,6 +75,7 @@ def analyze_offline():
         context_offLine = {"result_prediction": result_prediction,
                            "site_selected": site_choice,
                            "header2": header_offLine}
+        time.sleep(5)
         return render_template('bgp_ad_offline.html', **context_offLine)
         # return render_template('bgp_ad_offline.html', result_prediction=result_prediction)
     else:
