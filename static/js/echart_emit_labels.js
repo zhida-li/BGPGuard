@@ -1,4 +1,6 @@
-// EChart
+// EChart: labels vs. time
+// author: Zhida Li
+// last edit: Feb. 9, 2022
 
 var chartDom0 = document.getElementById('echart_labels');
 var myChart0 = echarts.init(chartDom0); //, 'dark');

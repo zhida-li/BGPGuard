@@ -1,4 +1,6 @@
-//
+//author: Zhida Li
+// last edit: Feb. 9, 2022
+
 $(document).ready(function () {
     namespace = '/test_conn';
 

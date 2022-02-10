@@ -1,4 +1,11 @@
-/* my CSS */
+/* my CSS style.
+Note: # refers to an ID; . refers to a class. */
+
+/*
+author: Zhida Li
+last edit: Feb. 9, 2022
+*/
+
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Noto Sans SC', sans-serif;
 }
@@ -301,7 +308,8 @@ footer ul li {
 }
 
 .clock_digital {
-    letter-spacing: 7px;
+    letter-spacing: 3px;
+    /*color: #1e88e5;*/
 }
 
 /* Off-line classification section */
@@ -327,3 +335,14 @@ footer ul li {
     font-size: 150%;
 }
 
+/* submit button padding */
+#btn_submit {
+    width: 50%;
+    /* TopBottom leftRight */
+    /*padding: 10px 200px;*/
+}
+
+/* reset button background color */
+#btn_reset {
+    background: #6c757d;
+}

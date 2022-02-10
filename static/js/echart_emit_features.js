@@ -1,4 +1,6 @@
-// EChart
+// EChart: features vs. time
+// author: Zhida Li
+// last edit: Feb. 9, 2022
 
 var chartDom2 = document.getElementById('echart_features');
 var myChart2 = echarts.init(chartDom2); //, 'dark');

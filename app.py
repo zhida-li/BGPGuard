@@ -1,6 +1,6 @@
 # Author: Zhida Li
-# last edit: Feb. 5, 2022
-# task: add other feature plot, offline function
+# last edit: Feb. 9, 2022
+# task: offline function
 
 import sys
 import random
@@ -55,7 +55,7 @@ def bgp_ad_offline():
 # Received parameters for the off-Line experiment
 @app.route('/bgp_ad_offline', methods=['POST'])
 def analyze_offline():
-    print(request.form)  # check if receive keys (name) from front-end
+    print('Dict. params. received from the front-end: \n', request.form)  # check if receive keys (name) from front-end
     model_params = {'site_choice',
                     'start_date_key', 'end_date_key',
                     'start_date_anomaly_key', 'end_date_anomaly_key',
@@ -64,7 +64,7 @@ def analyze_offline():
                     'rnn_seq_key'}
 
     if model_params == set(request.form.keys()):
-        print("Parameter received from the front-end!")
+        print("Parameter received from the front-end.")
         site_choice = request.form.get('site_choice')  # or use 'request.form['']' due to dict format
         if site_choice == 'ripe':
             result_prediction = random.randint(100, 200)
@@ -101,9 +101,14 @@ def background_thread_cpu():
     count = 0
     ALGOs = 'BLS'
     site = 'RIPE'
-    time_interval = 330  # 5*60 add 30 sec because there is delay for ripe and routeviews.
+    time_interval = 5 * 60  # RIPE provides new update msg every 5 minutes
 
     while True:
+        # if second = 5, wait 1 min until RIPE or Route Views do update
+        if int(time.strftime('%M', time.localtime())) % 5 == 0:
+            time.sleep(60)
+
+        # start processing...
         time_start = time.time()
 
         year, month, day, hour, minute = time_locator_single(site)
@@ -135,7 +140,7 @@ def background_thread_cpu():
         socketio.emit('server_response_text',
                       {'data_results': [results_text1, results_text2, results_text3, results_text4, results_text5],
                        'data_t': [t_utc]}, namespace='/test_conn')
-        socketio.sleep(1)
+        socketio.sleep(0.5)
 
         # Prepare uct time, features
         t_ann = []  # t_ann = ['01:45', '01:46', ...]
@@ -164,7 +169,7 @@ def background_thread_cpu():
         socketio.emit('server_response_echart0',
                       {'data_labels': [t_ann, predicted_labels]},
                       namespace='/test_conn')
-        socketio.sleep(1)
+        socketio.sleep(0.5)
 
         # Emit multi-core cpu usage, uct time
         count += 1
@@ -176,13 +181,35 @@ def background_thread_cpu():
                       {'data_cpu': [t_cpu, cpus], 'count': count},
                       namespace='/test_conn')
 
+        # completed processing...
         time_end = time.time()
-        print('Entire processing time: %.4f s' % (time_end - time_start))
 
-        time.sleep(time_interval)
-
-
+        time_realTime_backEnd = time_end - time_start
+        print('Entire processing time: %.4f s' % time_realTime_backEnd, '\n',
+              'Current time:', time.strftime('%H:%M:%S', time.localtime()))
+        t_sleep = time_interval - time_realTime_backEnd
+        if t_sleep <= 0:
+            continue
+        time.sleep(t_sleep)
 # Websocket for Real-Time Detection  -end
+
+
+if __name__ == '__main__':
+    socketio.run(app, debug=True)
+    # app.run(debug=True)
+
+
+"""
+use of app.run vs. socketio.run :
+
+https://github.com/miguelgrinberg/Flask-SocketIO/issues/1273
+Flask-SocketIO needs a web server. There are a few that you can use:
+The Gevent web server, started via socketio.run()
+The eventlet web server, also started via socketio.run()
+The Flask dev web server, which can be started either via app.run() or for convenience also via socketio.run()
+The Gunicorn web server with the eventlet or gevent workers, started via the gunicorn command.
+The uwsgi web server with gevent, started via the uwsgi command.
+"""
 
 # code for testing socketio using random generated integer numbers:
 # @socketio.on('main_event', namespace='/test_conn')
@@ -212,20 +239,3 @@ def background_thread_cpu():
 #         socketio.emit('server_response_echart',
 #                       {'data_cpu': [t_chart, cpus], 'count': count},
 #                       namespace='/test_conn')
-
-
-if __name__ == '__main__':
-    socketio.run(app, debug=True)
-    # app.run(debug=True)
-
-"""
-use of app.run vs. socketio.run :
-
-https://github.com/miguelgrinberg/Flask-SocketIO/issues/1273
-Flask-SocketIO needs a web server. There are a few that you can use:
-The Gevent web server, started via socketio.run()
-The eventlet web server, also started via socketio.run()
-The Flask dev web server, which can be started either via app.run() or for convenience also via socketio.run()
-The Gunicorn web server with the eventlet or gevent workers, started via the gunicorn command.
-The uwsgi web server with gevent, started via the uwsgi command.
-"""

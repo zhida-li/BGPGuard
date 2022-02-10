@@ -1,3 +1,7 @@
+// click functions
+// author: Zhida Li
+// last edit: Feb. 9, 2022
+
 // Back to top button
 // Get the button
 var mybutton = document.getElementById("btn_toTop");
@@ -26,7 +30,7 @@ function topFunction() {
 $('#btn_connect').click(function () {
     $('#btn_connect').html('<span class="spinner-grow spinner-grow-sm mr-2" ' +
         'role="status" aria-hidden="true">' +
-        '</span>Detecting BGP Anomalies...').addClass('disabled');
+        '</span>Detecting BGP Anomalies...').addClass('disabled btn-success');
 });
 
 
@@ -71,19 +75,25 @@ showTime();
 
 // Click show text
 $(function () {
-  $('[data-toggle="popover"]').popover()
+    $('[data-toggle="popover"]').popover()
 })
 
 // Off-line classification section: Progress bar when click "Submit"
 $('#btn_submit').click(function () {
-  var current_progress = 0;
-  var interval = setInterval(function() {
-      current_progress += 1;
-      $("#dynamic_bar")
-      .css("width", current_progress + "%")
-      .attr("aria-valuenow", current_progress)
-      .text(current_progress + "% Please wait for the results...");
-      if (current_progress >= 99)
-          clearInterval(interval);
-  }, 50);  //0.5s
+    // change color and text
+    $('#btn_submit').html('<span class="spinner-grow spinner-grow-sm mr-2" ' +
+        'role="status" aria-hidden="true">' +
+        '</span>Processing...').addClass('disabled btn-success');
+
+    // trigger the progress bar
+    var current_progress = 0;
+    var interval = setInterval(function () {
+        current_progress += 1;
+        $("#dynamic_bar")
+            .css("width", current_progress + "%")
+            .attr("aria-valuenow", current_progress)
+            .text(current_progress + "% Please wait for the results...");
+        if (current_progress >= 99)
+            clearInterval(interval);
+    }, 50);  // 50 msec (milliseconds)
 });

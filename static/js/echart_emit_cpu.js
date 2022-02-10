@@ -1,4 +1,7 @@
-// EChart
+// EChart CPU
+// author: Zhida Li
+// last edit: Feb. 9, 2022
+
 
 // var myChart = echarts.init(document.getElementById('echart_cpu'));
 var chartDom = document.getElementById('echart_cpu');
