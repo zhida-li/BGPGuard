@@ -104,6 +104,7 @@ header .navbar .navbar-nav .nav-link:hover {
     border-width: 1px;
     border-radius: 10px;
     padding: 5px 5px;
+    margin-right: 100px;
 }
 
 header .collapse {
