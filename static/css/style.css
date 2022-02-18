@@ -163,13 +163,14 @@ header .collapse {
 
 #intro_2modes .innertext {
     position: absolute;
-    bottom: 24px;
-    left: 24px;
+    bottom: 3px;
+    left: 20px;
+;
 }
 
-/* click on background */
+/* click on background, rgba(255, 255, 255, 0.3);*/
 #intro_2modes .innertext span {
-    background: rgba(255, 255, 255, 0.3);
+    background: #adb5bd9c;
     padding: 0px 15px;
     border-radius: 20px;
 }
@@ -200,6 +201,7 @@ header .collapse {
 #intro_2modes .outer {
     background: white;
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.08);
+    width: 90%;
 }
 
 /* intro_2modes all text in black */

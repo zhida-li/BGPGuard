@@ -34,7 +34,7 @@ myChart.setOption({
 
     visualMap: [
         {
-            show: true,
+            show: false,
             type: 'continuous',
             seriesIndex: 0,
             min: 0,
