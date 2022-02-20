@@ -1,10 +1,31 @@
-# Download update messages from RIPE or RouteViews
-# May. 04, 2020
-# import time
+"""
+    @author Zhida Li
+    @email zhidal@sfu.ca
+    @date May. 04, 2020
+    @version: 1.1.0
+    @description:
+                Download update messages from RIPE or RouteViews
+
+    @copyright Copyright (c) May. 04, 2020
+        All Rights Reserved
+
+    This Python code (versions 3.6 and newer)
+"""
+
+# ==============================================
+# updateMessageName(), data_downloader_single(), data_downloader_multi()
+# ==============================================
+# Last modified: Feb. 19, 2022
+
+# Import the built-in libraries
 import os
+import sys
+
+# Import customized libraries
+sys.path.append('./src')
 from progress_bar import progress_bar
 from subprocess_cmd import subprocess_cmd
-from time_locator import time_locator_multi
+from time_tracker import time_tracker_multi
 
 
 # Name of the update_message_file generation
@@ -26,18 +47,18 @@ def data_downloader_single(update_message_file, data_date, site, collector_ripe=
     data_file = update_message_file
 
     if site == 'RIPE':
-        data_link = "http://data.ris.ripe.net/%s/%s/%s.gz" % (collector_ripe, data_date, data_file)
+        data_link = "https://data.ris.ripe.net/%s/%s/%s.gz" % (collector_ripe, data_date, data_file)
 
-        # Update messgae files will be downloaded in "data_ripe" folder: --directory-prefix
-        subprocess_cmd("chmod -R 777 ./apps/app_realtime/;\
-                        cd apps/app_realtime/; wget -np --accept=gz %s \
+        # Update message files will be downloaded in "data_ripe" folder: --directory-prefix
+        subprocess_cmd("chmod -R 777 ./src/;\
+                        cd src/; wget -np --accept=gz %s \
                         --directory-prefix=data_ripe ; \
                         cd data_ripe ; \
                         chmod +x name-change-script.sh ;\
                         sh ./name-change-script.sh ; \
                         echo '=> >>>>>>>>>> > > > > > Extension changed (gz to Z)' " % (data_link))
 
-        subprocess_cmd("cd apps/app_realtime/; cd data_ripe ; \
+        subprocess_cmd("cd src/; cd data_ripe ; \
                         chmod +x zebra-script.sh ;\
                         sh ./zebra-script.sh")
 
@@ -47,11 +68,11 @@ def data_downloader_single(update_message_file, data_date, site, collector_ripe=
                         echo '=> >>>>>>>>>> > > > > > DUMP generated (MRT to ASCII)' ")
 
         # Move .Z file
-        subprocess_cmd("cd apps/app_realtime/; mv ./data_ripe/%s.Z ./data_ripe/temp/" % (data_file))
+        subprocess_cmd("cd src/; mv ./data_ripe/%s.Z ./data_ripe/temp/" % (data_file))
 
     # collector_routeviews is not finished (only use 'route-views2' now)
     elif site == 'RouteViews':
-        data_link2 = "http://archive.routeviews.org/bgpdata/%s/UPDATES/%s.bz2" % (data_date, data_file)
+        data_link2 = "https://archive.routeviews.org/bgpdata/%s/UPDATES/%s.bz2" % (data_date, data_file)
 
         # Update messgae files will be downloaded in "data_routeviews" folder: --directory-prefix
         subprocess_cmd("wget -np --accept=bz2 %s \
@@ -80,7 +101,7 @@ def data_downloader_multi(start_date, end_date, site, collector_ripe='rrc04', co
     # updates.YYYYMMDD.HHMM.gz
     # data_date = "%s.%s" % (year, month)
     # update_message_file = "updates.%s%s%s.%s%s" % (year, month, day, hour, minute)
-    date_list = time_locator_multi(start_date, end_date)
+    date_list = time_tracker_multi(start_date, end_date)
     print(date_list)
 
     # RIPE
@@ -102,7 +123,7 @@ def data_downloader_multi(start_date, end_date, site, collector_ripe='rrc04', co
             month = date_i[4:6]
             data_date = "%s.%s" % (year, month)
 
-            data_link = "http://data.ris.ripe.net/%s/%s/" % (collector_ripe, data_date)
+            data_link = "https://data.ris.ripe.net/%s/%s/" % (collector_ripe, data_date)
             data_file = 'updates.%s.*.gz' % date_i
             data_file_rm = 'updates.%s.*.Z' % date_i
 
@@ -144,7 +165,7 @@ def data_downloader_multi(start_date, end_date, site, collector_ripe='rrc04', co
             month = date_i[4:6]
             data_date = "%s.%s" % (year, month)
 
-            data_link = "http://archive.routeviews.org/bgpdata/%s/UPDATES/" % (data_date)
+            data_link = "https://archive.routeviews.org/bgpdata/%s/UPDATES/" % (data_date)
             data_file = 'updates.%s.*.bz2' % date_i
             data_file_rm = 'updates.%s.*' % date_i
 

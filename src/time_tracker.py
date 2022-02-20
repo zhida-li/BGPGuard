@@ -1,4 +1,23 @@
-# Apr. 28, 2020
+"""
+    @author Zhida Li
+    @email zhidal@sfu.ca
+    @date Apr. 28, 2020
+    @version: 1.1.0
+    @description:
+                Track the timestamp used for the filename from RIPE or Route Views.
+
+    @copyright Copyright (c) Apr. 28, 2020
+        All Rights Reserved
+
+    This Python code (versions 3.6 and newer)
+"""
+
+# ==============================================
+# time_tracker_single(), time_tracker_multi()
+# ==============================================
+# Last modified: Feb. 19, 2022
+
+#
 import time
 import datetime
 
@@ -8,7 +27,7 @@ import datetime
 # tm_sec=10, tm_wday=0, tm_yday=118, tm_isdst=0)
 
 # Enter RIPE or RouteViews
-def time_locator_single(site):
+def time_tracker_single(site):
     gmtime_now = time.gmtime()
     year = gmtime_now.tm_year
     year = str(year)
@@ -96,7 +115,7 @@ def time_locator_single(site):
 
 # Return the all the dates in a list.
 # format YYYYMMDD
-def time_locator_multi(start_date, end_date):
+def time_tracker_multi(start_date, end_date):
     # start_date='20030121'
     # end_date='20030125'
 

@@ -1,11 +1,29 @@
-# Generate the matrix using BGP C# tool
-# May. 01, 2020
+"""
+    @author Zhida Li
+    @email zhidal@sfu.ca
+    @date May. 01, 2020
+    @version: 1.1.0
+    @description:
+                Generate the matrix using BGP C# tool.
 
+    @copyright Copyright (c) May. 01, 2020
+        All Rights Reserved
+
+    This Python code (versions 3.6 and newer)
+"""
+
+# ==============================================
+# feature_extractor_single(), feature_extractor_multi
+# ==============================================
+# Last modified: Feb. 19, 2022
+
+# Import the built-in libraries
 # import time
 
+# Import customized libraries
 from progress_bar import progress_bar
 from subprocess_cmd import subprocess_cmd
-from time_locator import time_locator_multi
+from time_tracker import time_tracker_multi
 
 
 # Matrix generation
@@ -16,7 +34,7 @@ def feature_extractor_single(site, file_name='DUMP'):
     # line 19: &> ConsoleApplication1.out ; \
     # Move DUMP
     if site == 'RIPE':
-        subprocess_cmd("cd apps/app_realtime/; \
+        subprocess_cmd("cd src/; \
                         mv ./data_ripe/%s ./CSharp_Tool_BGP/ConsoleApplication1/bin/Release/ ; \
                         cd CSharp_Tool_BGP/ConsoleApplication1/bin/Release/ ; \
                         mono ConsoleApplication1.exe >/dev/null ; \
@@ -50,7 +68,7 @@ def feature_extractor_single(site, file_name='DUMP'):
     output_file = "%s_out.txt" % file_name
 
     # Move output_file
-    subprocess_cmd("cd apps/app_realtime/; mv ./CSharp_Tool_BGP/ConsoleApplication1/bin/Release/%s \
+    subprocess_cmd("cd src/; mv ./CSharp_Tool_BGP/ConsoleApplication1/bin/Release/%s \
                         ./data_test/" % output_file)
 
     return output_file  # output is string
@@ -61,7 +79,7 @@ def feature_extractor_multi(start_date, end_date, site):
     # Update message files will be downloaded in "data_ripe" or "data_routeviews" folder
     # line 19: &> ConsoleApplication1.out ; \
 
-    date_list = time_locator_multi(start_date, end_date)
+    date_list = time_tracker_multi(start_date, end_date)
     # print(date_list)
     if site == 'RIPE':
         output_file_list = []

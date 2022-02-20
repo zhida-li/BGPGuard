@@ -1,5 +1,22 @@
-# May. 01, 2020
+"""
+    @author Zhida Li
+    @email zhidal@sfu.ca
+    @date May. 01, 2020
+    @version: 1.1.0
+    @description:
+                This module contains the function for execution of the bash command.
 
+    @copyright Copyright (c) May. 01, 2020
+        All Rights Reserved
+
+    This Python code (versions 3.6 and newer)
+"""
+
+# ==============================================
+# subprocess_cmd()
+# ==============================================
+
+# Import the built-in libraries
 import subprocess
 
 

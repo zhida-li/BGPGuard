@@ -13,24 +13,27 @@
     Python code (version 3.6)
 """
 
-######################################################
-####### Main file
+# ==============================================
+# Main file
 # Modules of the BLS, RBF-BLS, CFBLS, CEBLS, and CFEBLS
 # algorithms
-######################################################
+# ==============================================
 
-# Import the Python libraries
+# Import the built-in libraries
+import os
+import sys
 import time
 import random
+
+# Import external libraries
 import numpy as np
-import sys
 from scipy.stats import zscore
 
+# Import customized libraries
+sys.path.append('./src/BLS_SFU_CNL_V101')
 from bls.processing.replaceNan import replaceNan
 from bls.processing.one_hot_m import one_hot_m
 from bls.model.bls_train_fscore_online import bls_train_fscore_online
-
-import os
 
 
 # import warnings
@@ -46,22 +49,22 @@ def bls_demo():
         sys.stdout = sys.__stdout__
 
     blockPrint()
-    seed = 1;  # set the seed for generating random numbers
-    num_class = 2;  # number of the classes
+    seed = 1  # set the seed for generating random numbers
+    num_class = 2  # number of the classes
 
     # Load the datasets
-    path_app = "apps/app_realtime/"
-    train_dataset11 = np.loadtxt("./%sdata_historical/slammer_64_train_ripe.csv" % path_app, delimiter=",");
-    train_dataset12 = np.loadtxt("./%sdata_historical/slammer_64_test_ripe.csv" % path_app, delimiter=",");
+    path_app = "src/"
+    train_dataset11 = np.loadtxt("./%sdata_historical/slammer_64_train_ripe.csv" % path_app, delimiter=",")
+    train_dataset12 = np.loadtxt("./%sdata_historical/slammer_64_test_ripe.csv" % path_app, delimiter=",")
 
-    train_dataset21 = np.loadtxt("./%sdata_historical/nimda_64_train.csv" % path_app, delimiter=",");
-    train_dataset22 = np.loadtxt("./%sdata_historical/nimda_64_test.csv" % path_app, delimiter=",");
+    train_dataset21 = np.loadtxt("./%sdata_historical/nimda_64_train.csv" % path_app, delimiter=",")
+    train_dataset22 = np.loadtxt("./%sdata_historical/nimda_64_test.csv" % path_app, delimiter=",")
 
-    train_dataset31 = np.loadtxt("./%sdata_historical/codered1_64_train.csv" % path_app, delimiter=",");
-    train_dataset32 = np.loadtxt("./%sdata_historical/codered1_64_test.csv" % path_app, delimiter=",");
+    train_dataset31 = np.loadtxt("./%sdata_historical/codered1_64_train.csv" % path_app, delimiter=",")
+    train_dataset32 = np.loadtxt("./%sdata_historical/codered1_64_test.csv" % path_app, delimiter=",")
 
-    train_dataset41 = np.loadtxt("./%sdata_historical/instance_matrix_test_ripe.csv" % path_app, delimiter=",");
-    train_dataset42 = np.loadtxt("./%sdata_historical/instance_matrix_test_bcnet.csv" % path_app, delimiter=",");
+    train_dataset41 = np.loadtxt("./%sdata_historical/instance_matrix_test_ripe.csv" % path_app, delimiter=",")
+    train_dataset42 = np.loadtxt("./%sdata_historical/instance_matrix_test_bcnet.csv" % path_app, delimiter=",")
 
     test_dataset = np.loadtxt('./%sdata_test/DUMP_out.txt' % path_app)
     # np.savetxt('./test_dataset.csv', test_dataset, delimiter=',',fmt='%.4f')

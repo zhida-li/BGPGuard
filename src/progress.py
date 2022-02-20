@@ -17,7 +17,12 @@
 # FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
 # OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
 # OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+# Edited by Zhida Li
+
+# Import the built-in libraries
 import sys
+
 
 def progress(count, total, status=''):
     bar_len = 60
@@ -29,5 +34,5 @@ def progress(count, total, status=''):
     fmt = '[%s] %s%s ...%s' % (bar, percents, '%', status)
     print('\b' * len(fmt), end='')  # clears the line
     sys.stdout.write(fmt)
-    sys.stdout.flush()       # As suggested by Rom Ruben (see:
+    sys.stdout.flush()  # As suggested by Rom Ruben (see:
     # http://stackoverflow.com/questions/3173320/text-progress-bar-in-the-console/27871113#comment50529068_27871113)
