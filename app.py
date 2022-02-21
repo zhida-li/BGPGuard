@@ -31,11 +31,13 @@ from flask_socketio import SocketIO, emit, disconnect
 from app_realtime import app_realtime_detection
 from app_offline import app_offline_classification
 from config import flask_config
+from config import flask_folder
 
 # print(__doc__)
 
 # Load Flask configuration
 async_mode, app, socketio, thread, thread_lock = flask_config()
+flask_folder()
 
 # Headers (html)
 header_realTime = "Real-Time BGP Anomaly Detection"
