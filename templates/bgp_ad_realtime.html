@@ -76,17 +76,21 @@
                     <!-- Buttons for connection and disconnection mr-3: margin-right-->
                     <div class="form-row">
                         <div class="col-md-6">
-                            <button id="btn_connect" type="button" class="btn btn-primary btn-block">
+                            <button id="btn_connect" type="submit" class="btn btn-primary btn-block">
                                 Connect
                             </button>
                         </div>
 
                         <div class="col-md-2 offset-md-4">
                             <span class="d-inline-block"
-                                  data-toggle="popover" data-trigger="hover" data-content="Disabled">
-                                <button class="btn btn-secondary btn-block" style="pointer-events: none;"
-                                        type="button" disabled>Disconnect
-                                </button>
+                                  data-toggle="popover" data-trigger="hover" data-content="Pause the real-time task">
+                                <form id="btn_disconnect" method="POST" action="#">
+                                    <!-- Disable code for btn: style="pointer-events: none;" disabled -->
+                                    <button type="submit" class="btn btn-secondary btn-block"
+                                            formmethod="POST"
+                                    >Disconnect
+                                    </button>
+                                </form>
                             </span>
                         </div>
                     </div>
@@ -101,17 +105,19 @@
                     <div class="row">
                         <div class="col-md-6 offset-md-3 text-left">
                             <p class="lead">Classification results for the past five minutes:</p>
-                            <span id="results0_p">Results for the 1st minute...</span>
+                            <!-- placeholder: Results for the 1st minute... -->
+                            <span id="results0_p"></span>
                             <br>
-                            <span id="results1_p">Results for the 2nd minute...</span>
+                            <span id="results1_p"></span>
                             <br>
-                            <span id="results2_p">Results for the 3rd minute...</span>
+                            <span id="results2_p"></span>
                             <br>
-                            <span id="results3_p">Results for the 4th minute...</span>
+                            <span id="results3_p"></span>
                             <br>
-                            <span id="results4_p">Results for the 5th minute...</span>
+                            <span id="results4_p"></span>
                             <!-- Emit data JS -->
                             <script src="../static/js/data_emit_labels_5min.js"></script>
+                            <br>
                         </div>
                     </div>
                     <br>
@@ -121,6 +127,13 @@
                         <p><strong>Plotting predicted labels and features...</strong></p>
                         <div class="spinner-grow spinner-grow-sm text-success ml-auto" role="status"
                              aria-hidden="true"></div>
+                    </div>
+
+                    <!-- Show disconnect status when triggering the Disconnect btn -->
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <span id="log_disconnect"></span>
+                        </div>
                     </div>
 
                     <!-- EChart placeholder: results -->

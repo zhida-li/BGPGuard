@@ -15,8 +15,8 @@
 # ==============================================
 # main file: app.py
 # ==============================================
-# Last modified: Feb. 19, 2022
-# task: re-structure
+# Last modified: Feb. 20, 2022
+# task: enable disconnect btn
 
 # Import the built-in libraries
 import sys
@@ -160,6 +160,23 @@ def app_realtime_thread():
         if t_sleep <= 0:  # if processing time is longer than waiting time
             continue
         time.sleep(t_sleep)
+
+
+# Trigger disconnection of the real-time detection
+@socketio.on('disconnect_request', namespace='/test_conn')
+def disconnect_request():
+    # @copy_current_request_context
+    def can_disconnect():
+        disconnect()
+
+    emit('disconnect_response',
+         {'data': 'Disconnected!'},
+         callback=can_disconnect)
+
+
+@socketio.on('disconnect', namespace='/test_conn')
+def test_disconnect():
+    print('Client disconnected', request.sid)
 
 
 # WebSocket for Real-Time Detection  -end

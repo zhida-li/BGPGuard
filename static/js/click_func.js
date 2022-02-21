@@ -33,6 +33,12 @@ $('#btn_connect').click(function () {
         '</span>Detecting BGP Anomalies...').addClass('disabled btn-success');
 });
 
+// <section id="ad_realTime">, disconnect button triggers, connect btn changes
+$('#btn_disconnect').click(function () {
+    $('#btn_connect').html('<span role="status" aria-hidden="true">' +
+        '</span>Reload the page and restart detection').addClass('disabled btn-secondary');
+});
+
 
 // Show current date
 var day = new Date();

@@ -1,13 +1,27 @@
 //author: Zhida Li
-// last edit: Feb. 9, 2022
+// last edit: Feb. 20, 2022
+// task: enable disconnect btn
 
 $(document).ready(function () {
     namespace = '/test_conn';
 
     var socket = io(namespace);
     // Start the background thread by pressing the "Connect button"
-    $('#btn_connect').click(function() {
+    $('#btn_connect').click(function () {
         socket.emit('main_event');
+    });
+
+    // Disconnect the real-time task (client -> server)
+    $('form#btn_disconnect').submit(function (event) {
+        socket.emit('disconnect_request');
+        return false;
+    });
+
+    // Server sends the confirmation msg to the client
+    socket.on('disconnect_response', function (msg, cb) {
+        $('#log_disconnect').append($('<span/>').text('Server received' + ': ' + msg.data).html());
+        if (cb)
+            cb();
     });
 
     // var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
@@ -33,5 +47,5 @@ $(document).ready(function () {
         $('#results4_p').text(results_text4);
 
     });
-    
+
 });
