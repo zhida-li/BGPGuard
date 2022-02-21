@@ -4,8 +4,8 @@ import sys
 import numpy as np
 from scipy.stats import zscore
 
-sys.path.append('../BLS_SFU_CNL_V101')
-from BLS_SFU_CNL_V101.bls.processing.replaceNan import replaceNan
+sys.path.append('../VFBLS_v110')
+from VFBLS_v110.bls.processing.replaceNan import replaceNan
 
 
 # cut_pct = '64'

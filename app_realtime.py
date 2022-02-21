@@ -33,8 +33,8 @@ from src.dataDownload import data_downloader_single
 from src.featureExtraction import feature_extractor_single
 from src.time_tracker import time_tracker_single
 
-# sys.path.append('./src/BLS_SFU_CNL_V101')
-from src.BLS_SFU_CNL_V101.BLS_demo import bls_demo
+# sys.path.append('./src/VFBLS_v110')
+from src.VFBLS_v110.BLS_demo import bls_demo
 
 
 def app_realtime_detection(ALGOs='VFBLS', site='RIPE', count=0):

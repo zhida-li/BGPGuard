@@ -30,7 +30,7 @@ import numpy as np
 from scipy.stats import zscore
 
 # Import customized libraries
-sys.path.append('./src/BLS_SFU_CNL_V101')
+sys.path.append('./src/VFBLS_v110')
 from bls.processing.replaceNan import replaceNan
 from bls.processing.one_hot_m import one_hot_m
 from bls.model.bls_train_fscore_online import bls_train_fscore_online
