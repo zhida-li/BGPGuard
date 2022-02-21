@@ -169,9 +169,7 @@ def disconnect_request():
     def can_disconnect():
         disconnect()
 
-    emit('disconnect_response',
-         {'data': 'Disconnected!'},
-         callback=can_disconnect)
+    emit('disconnect_response', {'data': 'Disconnected!'}, callback=can_disconnect)
 
 
 @socketio.on('disconnect', namespace='/test_conn')

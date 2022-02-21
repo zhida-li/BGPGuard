@@ -67,8 +67,10 @@ def data_downloader_single(update_message_file, data_date, site, collector_ripe=
         subprocess_cmd("echo ' '; \
                         echo '=> >>>>>>>>>> > > > > > DUMP generated (MRT to ASCII)' ")
 
-        # Move .Z file
-        subprocess_cmd("cd src/; mv ./data_ripe/%s.Z ./data_ripe/temp/" % (data_file))
+        # Move .Z file, then remove it
+        subprocess_cmd("cd src/; mv ./data_ripe/%s.Z ./data_ripe/temp/; \
+                        rm ./data_ripe/DUMPER; \
+                        rm ./data_ripe/temp/%s.Z" % (data_file, data_file))
 
     # collector_routeviews is not finished (only use 'route-views2' now)
     elif site == 'RouteViews':
@@ -89,8 +91,10 @@ def data_downloader_single(update_message_file, data_date, site, collector_ripe=
         subprocess_cmd("echo ' '; \
                         echo '=> >>>>>>>>>> > > > > > DUMP generated (MRT to ASCII)' ")
 
-        # Move Decompressed file
-        subprocess_cmd("mv ./data_routeviews/%s ./data_routeviews/temp/" % (data_file))
+        # Move Decompressed file, then remove it
+        subprocess_cmd("mv ./data_routeviews/%s ./data_routeviews/temp/ ; \
+                        rm ./data_routeviews/DUMPER; \
+                        rm ./data_routeviews/temp/%s" % (data_file, data_file))
     else:
         print("Wrong name")
         exit()

@@ -6,5 +6,5 @@ bzip2 -d "$file"
 done
 
 for file in updates.*; do
-zcat -f < "$file" | ./zebra-dump-parser-modified.pl >>DUMP 2>>DUMPERR
+zcat -f < "$file" | ./zebra-dump-parser-modified.pl >>DUMP 2>>DUMPER
 done
