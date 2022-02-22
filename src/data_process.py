@@ -3,6 +3,7 @@
 import sys
 import numpy as np
 from scipy.stats import zscore
+from sklearn.ensemble import ExtraTreesClassifier
 
 sys.path.append('../VFBLS_v110')
 from VFBLS_v110.bls.processing.replaceNan import replaceNan
@@ -11,7 +12,7 @@ from VFBLS_v110.bls.processing.replaceNan import replaceNan
 # cut_pct = '64'
 # site = 'RIPE'
 
-## 
+# Normalization
 def normTrainTest(cut_pct, site):
     train = np.loadtxt('./data_split/train_%s_%s.csv' % (cut_pct, site), delimiter=',')
     test = np.loadtxt('./data_split/test_%s_%s.csv' % (cut_pct, site), delimiter=',')
@@ -37,7 +38,18 @@ def normTrainTest(cut_pct, site):
     np.savetxt('./data_split/test_%s_%s_n.csv' % (cut_pct, site), test_n, delimiter=',')  # ,fmt='%.4f')
 
 
-## Feature selection def()
-def featureSel(dataset='test', topFeatures=10):
-    print("Feature selection module is being built...")
-    pass
+# Feature selections:
+def featSel(featALGO, data, label, topFeatures=10):
+    np.random.seed(1);
+    model = ExtraTreesClassifier(n_estimators=100, random_state=1)
+    label = np.ravel(label)
+    model.fit(data, label)
+
+    importances = model.feature_importances_
+
+    f_indices = np.argsort(importances)[::-1]
+    # print(f_indices)
+
+    selected_features = f_indices[0:topFeatures]
+    # print(selected_features)
+    return selected_features

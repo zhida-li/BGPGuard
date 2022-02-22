@@ -17,7 +17,7 @@
 """
 
 ######################################################
-####### BLS 
+####### BLS
 ######################################################
 
 # Import the Python libraries
@@ -30,7 +30,7 @@ from scipy.stats import zscore
 from scipy.linalg import orth
 from numpy.linalg import pinv
 
-#sys.path.append("..")
+# sys.path.append("..")
 from bls.processing.result import result
 from bls.processing.sparse_bls import sparse_bls
 
@@ -51,18 +51,19 @@ from sklearn.metrics import accuracy_score
         'N1' is the number of mapped feature nodes.
         'N2' are the groups of mapped features.
         'N3' is the number of enhancement nodes.
-    
+
     Randomoly generated weights for the mapped features and enhancement nodes are
     stored in the
     matrices 'we' and 'wh,' respectively.
 """
-def bls_train_fscore_online(train_x, train_y, test_x, s, C, N1, N2, N3):
 
+
+def bls_train_fscore_online(train_x, train_y, test_x, s, C, N1, N2, N3):
     # Training - begin
-    time_start=time.time()
+    time_start = time.time()
     beta11 = [];
 
-    train_x = zscore(train_x.transpose(), axis = 0, ddof = 1).transpose();
+    train_x = zscore(train_x.transpose(), axis=0, ddof=1).transpose();
     H1 = np.concatenate((train_x, 0.1 * np.ones((train_x.shape[0], 1))), axis=1);
 
     y = np.zeros((train_x.shape[0], N2 * N1));
@@ -72,12 +73,11 @@ def bls_train_fscore_online(train_x, train_y, test_x, s, C, N1, N2, N3):
 
     ### Generation of mapped features
     for i in range(0, N2):
-        
-        #we = 2.0 * np.random.rand(train_x.shape[1] + 1, N1) - 1.0;
+        # we = 2.0 * np.random.rand(train_x.shape[1] + 1, N1) - 1.0;
         we = 2.0 * np.random.rand(N1, train_x.shape[1] + 1).transpose() - 1.0;
-        
-        #we = np.loadtxt("we.csv", delimiter = ",");
-        #np.savetxt("we.csv", we, delimiter=",");
+
+        # we = np.loadtxt("we.csv", delimiter = ",");
+        # np.savetxt("we.csv", we, delimiter=",");
 
         A1 = np.dot(H1, we);
         [A1, max_list, min_list] = mapminmax(A1);
@@ -104,15 +104,15 @@ def bls_train_fscore_online(train_x, train_y, test_x, s, C, N1, N2, N3):
     H2 = np.concatenate((y, 0.1 * np.ones((y.shape[0], 1))), axis=1);
 
     if N1 * N2 >= N3:
-        #wh = orth(2 * np.random.rand(N2 * N1 + 1, N3) - 1);
+        # wh = orth(2 * np.random.rand(N2 * N1 + 1, N3) - 1);
         wh = orth(2 * np.random.rand(N3, N2 * N1 + 1).transpose() - 1);
 
     else:
-        #wh = orth(2 * np.random.rand(N2 * N1 + 1, N3).transpose() - 1).transpose();
+        # wh = orth(2 * np.random.rand(N2 * N1 + 1, N3).transpose() - 1).transpose();
         wh = orth(2 * np.random.rand(N3, N2 * N1 + 1) - 1).transpose();
 
-    #wh = np.loadtxt("wh.csv", delimiter = ",");
-    #np.savetxt("wh.csv", wh, delimiter=",");
+    # wh = np.loadtxt("wh.csv", delimiter = ",");
+    # np.savetxt("wh.csv", wh, delimiter=",");
 
     T2 = np.dot(H2, wh);
     l2 = T2.max();
@@ -128,15 +128,15 @@ def bls_train_fscore_online(train_x, train_y, test_x, s, C, N1, N2, N3):
 
     # Moore-Penrose pseudoinverse (function pinv)
     beta = np.dot(pinv(np.dot(T3.transpose(), T3) + np.identity(T3.transpose().shape[0]) * C),
-        np.dot(T3.transpose(), train_y));
-    
+                  np.dot(T3.transpose(), train_y));
+
     xx = np.dot(T3, beta);
 
     del T3;
 
-    time_end=time.time()
+    time_end = time.time()
     Training_time = time_end - time_start
-    
+
     # Training - end
 
     print("Training has been finished!");
@@ -157,23 +157,22 @@ def bls_train_fscore_online(train_x, train_y, test_x, s, C, N1, N2, N3):
 
     ### Testing Process
     # Testing - begin
-    time_start=time.time()
-    test_x = zscore( (test_x).transpose() ,axis = 0, ddof = 1).transpose();
-        
+    time_start = time.time()
+    test_x = zscore((test_x).transpose(), axis=0, ddof=1).transpose();
+
     HH1 = np.concatenate((test_x, 0.1 * np.ones((test_x.shape[0], 1))), axis=1);
     yy1 = np.zeros((test_x.shape[0], N2 * N1));
 
     ### Generation of mapped features
     for i in range(0, N2):
-
         beta1 = beta11[i];
 
-        TT1 = np.dot( (HH1), (beta1)) ;
+        TT1 = np.dot((HH1), (beta1));
 
         max_list = max_list_set[i];
         min_list = min_list_set[i];
 
-        [TT1, max_list, min_list] = mapminmax( TT1.transpose(), 0, 1, max_list, min_list);
+        [TT1, max_list, min_list] = mapminmax(TT1.transpose(), 0, 1, max_list, min_list);
         TT1 = TT1.transpose();
 
         del beta1;
@@ -189,7 +188,6 @@ def bls_train_fscore_online(train_x, train_y, test_x, s, C, N1, N2, N3):
     HH2 = np.concatenate((yy1, 0.1 * np.ones((yy1.shape[0], 1))), axis=1);
     TT2 = np.tanh(np.dot(HH2, wh) * l2);
 
-
     TT3 = np.concatenate((yy1, TT2), axis=1);
 
     del HH2;
@@ -198,7 +196,7 @@ def bls_train_fscore_online(train_x, train_y, test_x, s, C, N1, N2, N3):
 
     x = np.dot(TT3, beta);
 
-    time_end=time.time()
+    time_end = time.time()
     Testing_time = time_end - time_start
 
     # Testing - end

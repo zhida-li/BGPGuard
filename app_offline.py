@@ -35,7 +35,7 @@ from src.featureExtraction import feature_extractor_single
 from src.time_tracker import time_tracker_single
 
 # sys.path.append('./src/VFBLS_v110')
-from src.VFBLS_v110.BLS_demo import bls_demo
+from src.VFBLS_v110.VFBLS_realtime import vfbls_demo
 
 
 def app_offline_classification(header_offLine, site_choice):

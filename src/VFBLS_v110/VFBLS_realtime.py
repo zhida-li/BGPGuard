@@ -1,23 +1,22 @@
 """
-    @authors Zhida Li, Ana Laura Gonzalez Rios, and Guangyu Xu
-    @email {zhidal, anag, gxa5}@sfu.ca
-    @date Mar. 4, 2020
-    @version: 1.0.1
+    @author Zhida Li
+    @email zhidal@sfu.ca
+    @date Feb. 19, 2022
+    @version: 1.1.0
     @description:
-                This file creates BLS models based on a 'training_dataset' and 'test_dataset.'
-                Each BLS model returns the performance results: accuracy, F-Score, and training time.
+                This module contains the vfbls function
+                for loading data and prediction.
 
-    @copyright Copyright (c) Sept. 14, 2019
+    @copyright Copyright (c) Feb. 19, 2022
         All Rights Reserved
 
-    Python code (version 3.6)
+    This Python code (versions 3.6 and newer)
 """
 
 # ==============================================
-# Main file
-# Modules of the BLS, RBF-BLS, CFBLS, CEBLS, and CFEBLS
-# algorithms
+# VFBLS real-time detection high-level module
 # ==============================================
+# Last modified: Feb. 22, 2022
 
 # Import the built-in libraries
 import os
@@ -32,14 +31,14 @@ from scipy.stats import zscore
 # Import customized libraries
 sys.path.append('./src/VFBLS_v110')
 from bls.processing.replaceNan import replaceNan
-from bls.processing.one_hot_m import one_hot_m
-from bls.model.bls_train_fscore_online import bls_train_fscore_online
+from bls.model.bls_train_realtime import bls_train_fscore_online
+from bls.model.vfbls_train import vfbls_train_realtime
 
 
 # import warnings
 # warnings.filterwarnings("ignore", category=FutureWarning)
 
-def bls_demo():
+def vfbls_demo():
     # Disable
     def blockPrint():
         sys.stdout = open(os.devnull, 'w')
@@ -78,68 +77,82 @@ def bls_demo():
     train_dataset = np.concatenate((train_dataset1, train_dataset2, train_dataset3, train_dataset4), axis=0)
     # np.savetxt('./train_dataset.csv', train_dataset, delimiter=',',fmt='%.4f')
 
-    train_x = train_dataset[:, 0:train_dataset.shape[1] - 1];
-    train_x = zscore(train_x, axis=0, ddof=1);  # For each feature, mean = 0 and std = 1
-    replaceNan(train_x);  # Replace "nan" with 0
-    train_y = train_dataset[:, train_dataset.shape[1] - 1: train_dataset.shape[1]];
+    train_x = train_dataset[:, 0:train_dataset.shape[1] - 1]
+    train_x = zscore(train_x, axis=0, ddof=1)  # For each feature, mean = 0 and std = 1
+    replaceNan(train_x)  # Replace "nan" with 0
+    train_y = train_dataset[:, -1]
 
     # Change training labels
-    inds1 = np.where(train_y == 0);
-    train_y[inds1] = 2;
+    inds1 = np.where(train_y == 0)
+    train_y[inds1] = 2
 
-    ## new process test data
-    test_x = test_dataset[:, 4:];
-    # print(test_x.shape)               # numpy
-    # print(type(test_x))               # 5-by-37
+    # new process test data #
+    test_x = test_dataset[:, 4:]
 
     # Normalize test data
     test_x = zscore(test_x, axis=0, ddof=1);  # For each feature, mean = 0 and std = 1
     replaceNan(test_x);  # Replace "nan" with 0
-    # test_y = test_dataset[:, test_dataset.shape[1]  - 1 : test_dataset.shape[1] ];
+    # test_y = test_dataset[:, -1];
 
     # # Change test labels
-    # inds1 = np.where(test_y == 0);
-    # test_y[inds1] = 2;
-
-    train_y = one_hot_m(train_y, num_class);
-    # test_y = one_hot_m(test_y, num_class);
+    # inds2 = np.where(test_y == 0);
+    # test_y[inds2] = 2;
 
     # BLS parameters
-    C = 2 ** -25;  # parameter for sparse regularization
-    s = 0.8;  # the shrinkage parameter for enhancement nodes
+    C = 2 ** -10  # parameter for sparse regularization
+    s = 0.8  # the shrinkage parameter for enhancement nodes
 
     # N1* - the number of mapped feature nodes
     # N2* - the groups of mapped features
     # N3* - the number of enhancement nodes
 
-    N1_bls = 30
-    N2_bls = 20
-    N3_bls = 20
+    #######################
+    N1_bls_fsm = 30
+    N2_bls_fsm = 10
+    N3_bls_fsm = 100
 
-    epochs = 1;  # number of epochs
+    N1_bls_fsm1 = 20
+    N2_bls_fsm1 = 10
 
-    train_err = np.zeros((1, epochs));
-    train_time = np.zeros((1, epochs));
-    test_time = np.zeros((1, epochs));
+    N1_bls_fsm2 = 20
+    N2_bls_fsm2 = 10
 
-    # # BLS ----------------------------------------------------------------
-    print("================== BLS ===========================\n\n");
+    add_nFeature1 = 16
+    add_nFeature2 = 8
+    #######################
 
-    np.random.seed(seed);  # set the seed for generating random numbers
+    epochs = 1  # number of epochs
+    train_err = np.zeros((1, epochs))
+    train_time = np.zeros((1, epochs))
+    test_time = np.zeros((1, epochs))
+
+    # VFBLS ----------------------------------------------------------------
+    print("================== VFBLS ===========================\n\n")
+    np.random.seed(seed)  # set the seed for generating random numbers
     for j in range(0, epochs):
-        TrainingAccuracy, Training_time, Testing_time, predicted = \
-            bls_train_fscore_online(train_x, train_y, test_x, s, C, N1_bls, N2_bls, N3_bls);
+        trainingAccuracy, trainingTime, testingTime, predicted \
+            = vfbls_train_realtime(train_x, train_y, test_x,
+                                   s, C,
+                                   N1_bls_fsm, N2_bls_fsm, N3_bls_fsm,
+                                   N1_bls_fsm1, N2_bls_fsm1, N1_bls_fsm2, N2_bls_fsm2,
+                                   add_nFeature1, add_nFeature2)
 
-        train_err[0, j] = TrainingAccuracy * 100;
-        train_time[0, j] = Training_time;
-        test_time[0, j] = Testing_time;
+        train_err[0, j] = trainingAccuracy * 100
+        train_time[0, j] = trainingTime
+        test_time[0, j] = testingTime
 
-    bls_train_time = Training_time;
-    bls_test_time = Testing_time;
+    # np.random.seed(seed);  # set the seed for generating random numbers
+    # for j in range(0, epochs):
+    #     TrainingAccuracy, Training_time, Testing_time, predicted = \
+    #         bls_train_fscore_online(train_x, train_y, test_x, s, C, N1_bls, N2_bls, N3_bls);
+    #
+    #     train_err[0, j] = trainingAccuracy * 100;
+    #     train_time[0, j] = trainingTime;
+    #     test_time[0, j] = testingTime;
 
     enablePrint()
 
-    # print("ok: ", 'ok'), new
+    # predicted = [[1.], [2.], [2.], [2.], [2.]]
     predicted_list = []
     for label in predicted:
         predicted_list.append(label[0])
@@ -158,13 +171,11 @@ def bls_demo():
         if len(minute) == 1:
             minute = '0' + minute
         if label == 1:
-            print("\n Test time (HH:MM) %s : %s => An anomaly is detected!" % (hour, minute))
-            web_results.append("Test time (HH:MM) %s : %s => An anomaly is detected!" % (hour, minute))
+            print("\n Detection time (HH:MM) %s : %s => An anomaly is detected!" % (hour, minute))
+            web_results.append("Detection time (HH:MM) %s : %s => An anomaly is detected!" % (hour, minute))
         else:
-            print("\n Test time (HH:MM) %s : %s => Normal traffic" % (hour, minute))
-            web_results.append("Test time (HH:MM) %s : %s => Normal traffic" % (hour, minute))
+            print("\n Detection time (HH:MM) %s : %s => Normal traffic" % (hour, minute))
+            web_results.append("Detection time (HH:MM) %s : %s => Normal traffic" % (hour, minute))
         test_hour_chart.append(hour)
         test_min_chart.append(minute)
     return predicted_list, test_hour_chart, test_min_chart, web_results
-
-# bls_demo()

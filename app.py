@@ -110,7 +110,7 @@ def test_connect():
 
 def app_realtime_thread():
     count = 0
-    ALGOs = 'VFBLS'
+    ALGO = 'VFBLS'
     site = 'RIPE'
     if site == 'RIPE':
         time_interval = 5 * 60  # RIPE provides new update msg every 5 minutes
@@ -127,7 +127,7 @@ def app_realtime_thread():
 
         # Load the data for the front-end (real-time)
         web_results, t_utc, t_ann, data_for_plot_ann, data_for_plot_wd, count, predicted_labels, \
-        t_cpu, cpus = app_realtime_detection(ALGOs, site, count)
+        t_cpu, cpus = app_realtime_detection(ALGO, site, count)
 
         # Emit uct date & time, predicted labels of 5min
         socketio.emit('server_response_text',

@@ -34,12 +34,12 @@ from src.featureExtraction import feature_extractor_single
 from src.time_tracker import time_tracker_single
 
 # sys.path.append('./src/VFBLS_v110')
-from src.VFBLS_v110.BLS_demo import bls_demo
+from src.VFBLS_v110.VFBLS_realtime import vfbls_demo
 
 
-def app_realtime_detection(ALGOs='VFBLS', site='RIPE', count=0):
+def app_realtime_detection(ALGO='VFBLS', site='RIPE', count=0):
     """
-    :param ALGOs: algorithm
+    :param ALGO: algorithm
     :param site:  collection site
     :param count: no. of the real-time detection
     :return: data for socket.io
@@ -47,19 +47,19 @@ def app_realtime_detection(ALGOs='VFBLS', site='RIPE', count=0):
     year, month, day, hour, minute = time_tracker_single(site)
     update_message_file, data_date = updateMessageName(year, month, day, hour, minute)
     print("=> >>>>>>>>>> > > > > > ",
-          "Processing update_message_file:", update_message_file,
+          "Processing an update message file:", update_message_file,
           " < < < < < <<<<<<<<<< <= \n")
     data_downloader_single(update_message_file, data_date, site)
     file_name = feature_extractor_single(site)  # file_name not use
 
     # Prepare uct date & time, predicted labels of 5min
-    if ALGOs == 'VFBLS':
+    if ALGO == 'VFBLS':
         # VFBLS
-        predicted_labels, test_hour_chart, test_min_chart, web_results = bls_demo()
+        predicted_labels, test_hour_chart, test_min_chart, web_results = vfbls_demo()
         # print("predicted", predicted_labels)  # type: [2.0, 1.0, ...]
         # print("test_hour", test_hour_chart)  # type: ['01', '01', ...]
         # print("web_results", web_results)
-    elif ALGOs == 'GRU':
+    elif ALGO == 'GRU':
         # GRU
         # gru2_demo()
         print("Please re-enter.")
