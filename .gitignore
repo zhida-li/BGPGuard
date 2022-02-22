@@ -132,5 +132,6 @@ dmypy.json
 .DS_Store
 .idea
 
+# output generated in the real-time/off-line tasks
 src/CSharp_Tool_BGP/ConsoleApplication1/bin/Release/DUMP_featureselection.txt
 src/data_test/DUMP_out.txt
