@@ -131,3 +131,6 @@ dmypy.json
 # customize remove
 .DS_Store
 .idea
+
+./src/CSharp_Tool_BGP/ConsoleApplication1/bin/Release/DUMP_featureselection.txt
+./src/data_test/DUMP_out.txt
