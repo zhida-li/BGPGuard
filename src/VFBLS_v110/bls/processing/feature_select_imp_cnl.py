@@ -27,7 +27,7 @@ def feature_select_imp_cnl(data, label, top_f_features):
     # print(selected_features)
 
     importances2 = importances[selected_features]
-    print(importances2)
+    # print(importances2)
 
     # output = np.concatenate((selected_features.reshape((-1,1)), importances2.reshape((-1,1))),axis=1)
     # np.savetxt('featureImportance_nslkdd.csv', output, delimiter=',' , fmt='%f')

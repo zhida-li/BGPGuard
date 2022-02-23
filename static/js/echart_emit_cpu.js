@@ -1,6 +1,6 @@
 // EChart CPU
 // author: Zhida Li
-// last edit: Feb. 9, 2022
+// last modified: Feb. 22, 2022
 
 
 // var myChart = echarts.init(document.getElementById('echart_cpu'));
@@ -50,8 +50,8 @@ myChart.setOption({
 //             0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0]
 
 
-var t_cpu = Array(100).fill(""),
-    cpu = Array(100).fill(0)
+var t_cpu = Array(30).fill(""),
+    cpu = Array(30).fill("")
 
 // console.log("before t (chart):", t_cpu);
 // console.log("before cpu (chart):", cpu);
@@ -70,14 +70,14 @@ var update_mychart = function (res) {
     // const count_chart =  Array.prototype.push.apply(t_cpu, res.data_cpu[0]);
     Array.prototype.push.apply(t_cpu, res.data_cpu[0]);
     Array.prototype.push.apply(cpu, res.data_cpu[1]);
-    console.log("push t (chart):", t_cpu);
-    console.log("push cpu (chart):", cpu);
-    if (t_cpu.length >= 100) {
-        // t_cpu.shift();
-        // cpu.shift();
-        // remove the first 10 elements
-        t_cpu.splice(0, 10);
-        cpu.splice(0, 10);
+    // console.log("push t (chart):", t_cpu);  // for debug
+    // console.log("push cpu (chart):", cpu);  // for debug
+    if (t_cpu.length >= 61) {  // extra 1 is the first element of the queue and will be removed
+        t_cpu.shift();
+        cpu.shift();
+        // use the code below if the len(cpu or t_cpu) >=2; remove the first 10 elements
+        // t_cpu.splice(0, 10);
+        // cpu.splice(0, 10);
     }
 
     // fill the data
@@ -89,9 +89,7 @@ var update_mychart = function (res) {
             name: 'CPU', // related to the data name in legend
             data: cpu
         }]
-
     });
-
 };
 
 // initial load the animation
@@ -104,9 +102,9 @@ $(document).ready(function () {
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
 
     socket.on('server_response_echart_cpu', function (res) {
-        console.log("CPU (server):", res.data_cpu[1]);
-        console.log("CPU t (server):", res.data_cpu[0]);
-        console.log("Count (server):", res.count);
+        // console.log("CPU t (server -> client):", res.data_cpu[0]);  // for debug
+        // console.log("CPU (server -> client):", res.data_cpu[1]);  // for debug
+        // console.log("Count (server -> client):", res.count);  // for debug
         update_mychart(res);
         // repeat with the interval of 10 seconds
         // let timerId = setInterval(() => console.clear(), 10*1000);
@@ -115,7 +113,6 @@ $(document).ready(function () {
         //   timerId = setTimeout(reset_console, 2*1000); // (*)
         // }, 10*1000);
     });
-
 });
 
 

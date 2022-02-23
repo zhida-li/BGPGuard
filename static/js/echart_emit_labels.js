@@ -1,6 +1,6 @@
 // EChart: labels vs. time
 // author: Zhida Li
-// last edit: Feb. 9, 2022
+// last modified: Feb. 22, 2022
 
 var chartDom0 = document.getElementById('echart_labels');
 var myChart0 = echarts.init(chartDom0); //, 'dark');
@@ -41,15 +41,15 @@ myChart0.setOption({
             name: 'Predicted class',
             data: [],  //y values
             type: 'scatter',
-            symbolSize: 8,
+            symbolSize: 5,
             color: 'rgb(255, 70, 131)'
         },
     ],
 });
 
 
-var t_ann2 = Array(40).fill(""),
-    bgp_labels = Array(40).fill("")
+var t_ann2 = Array(25).fill(""),  // total will be 25+5=30 points
+    bgp_labels = Array(25).fill("")
 
 // callback function
 var update_mychart0 = function (res) {
@@ -60,11 +60,12 @@ var update_mychart0 = function (res) {
     // prepare data
     Array.prototype.push.apply(t_ann2, res.data_labels[0]);
     Array.prototype.push.apply(bgp_labels, res.data_labels[1]);
+    // console.log("push bgp_labels (chart):", bgp_labels);  // for debug
 
-    if (t_ann2.length >= 60 * 2) {
-        // remove the first 10 elements
-        t_ann2.splice(0, 10);
-        bgp_labels.splice(0, 10);
+    if (t_ann2.length >= 60 * 5 + 5) {  // extra 5 is the first 5 elements of the queue and will be removed.
+        // remove the first 5 elements
+        t_ann2.splice(0, 5);
+        bgp_labels.splice(0, 5);
     }
 
     // fill the data
@@ -79,9 +80,7 @@ var update_mychart0 = function (res) {
                 name: 'Predicted class', // related to the data name in legend
                 data: bgp_labels,
             }]
-
     });
-
 };
 
 
@@ -91,7 +90,7 @@ $(document).ready(function () {
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
 
     socket.on('server_response_echart0', function (res) {
+        console.log("labels (server -> client):", res.data_labels[1]);  // for debug
         update_mychart0(res);
     });
-
 });

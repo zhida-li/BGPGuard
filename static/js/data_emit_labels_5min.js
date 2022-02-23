@@ -1,5 +1,5 @@
 //author: Zhida Li
-// last edit: Feb. 20, 2022
+// last modified: Feb. 22, 2022
 // task: enable disconnect btn
 
 $(document).ready(function () {
@@ -26,7 +26,7 @@ $(document).ready(function () {
 
     // var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
     socket.on('server_response_text', function (res) {
-        console.log("Min 0 result and local time (server):", res.data_results[0], res.data_t[1]);  // here just show res.data[1]
+        // console.log("Minute 0 result and local time (server ->):", res.data_results[0], res.data_t[0]);  // for debug
         var t_utc = res.data_t[0];
         $('#t_utc').text(t_utc);
 
@@ -45,7 +45,5 @@ $(document).ready(function () {
 
         var results_text4 = res.data_results[4];
         $('#results4_p').text(results_text4);
-
     });
-
 });

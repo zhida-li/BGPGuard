@@ -76,8 +76,8 @@ def app_realtime_detection(ALGO='VFBLS', site='RIPE', count=0):
     data_for_plot = np.loadtxt('./%sdata_test/DUMP_out.txt' % path_app)
     data_for_plot_ann = data_for_plot[:, 4]
     data_for_plot_ann = data_for_plot_ann.tolist()
-    data_for_plot_wd = data_for_plot[:, 5]
-    data_for_plot_wd = data_for_plot_wd.tolist()
+    data_for_plot_wdrl = data_for_plot[:, 5]
+    data_for_plot_wdrl = data_for_plot_wdrl.tolist()
     # print(t_ann)
     # print(data_for_plot_ann)
 
@@ -90,9 +90,11 @@ def app_realtime_detection(ALGO='VFBLS', site='RIPE', count=0):
     count += 1
     t_cpu = time.strftime('%H:%M:%S', time.gmtime())
     cpus = psutil.cpu_percent(interval=None, percpu=True)  # percentages for each core, 10 elements
-    t_cpu = 10 * [t_cpu]  # 10 time elements, element type is string.
+    cpus_avg = round(sum(cpus) / len(cpus), 2)  # %.2f
+    cpus_avg = [cpus_avg]
+    t_cpu = 1 * [t_cpu]  # element type: string
 
-    return web_results, t_utc, t_ann, data_for_plot_ann, data_for_plot_wd, count, predicted_labels, t_cpu, cpus
+    return web_results, t_utc, t_ann, data_for_plot_ann, data_for_plot_wdrl, count, predicted_labels, t_cpu, cpus_avg
 
 
 """

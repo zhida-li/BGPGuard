@@ -76,7 +76,7 @@ def data_downloader_single(update_message_file, data_date, site, collector_ripe=
     elif site == 'RouteViews':
         data_link2 = "https://archive.routeviews.org/bgpdata/%s/UPDATES/%s.bz2" % (data_date, data_file)
 
-        # Update messgae files will be downloaded in "data_routeviews" folder: --directory-prefix
+        # Update message files will be downloaded in "data_routeviews" folder: --directory-prefix
         subprocess_cmd("wget -np --accept=bz2 %s \
                         --directory-prefix=data_routeviews ; \
                         cd data_routeviews ;" % (data_link2))

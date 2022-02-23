@@ -118,7 +118,7 @@ header .collapse {
     /* rgba(red, green, blue, alpha) The alpha 0.0 (fully transparent) and 1.0 (not transparent at all) */
     /* background-image: linear-gradient(to right, rgba(255,255,255,0.9) 20%,rgba(255,255,255,0.1) 100%), */
     background-image: linear-gradient(to right, rgba(255, 255, 255, 0.99) 20%, rgba(255, 255, 255, 0.7) 70%, rgba(255, 255, 255, 0) 95%),
-    url("../../static/imgs/twitter-ego-degreeRange400-317nodes.png");
+    url("../../static/imgs/bgpGuard_index_jumbotron.png");
     background-size: contain;
     background-position: center;
 }

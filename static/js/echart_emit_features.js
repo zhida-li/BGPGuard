@@ -1,6 +1,6 @@
 // EChart: features vs. time
 // author: Zhida Li
-// last edit: Feb. 9, 2022
+// last modified: Feb. 22, 2022
 
 var chartDom2 = document.getElementById('echart_features');
 var myChart2 = echarts.init(chartDom2); //, 'dark');
@@ -100,27 +100,27 @@ myChart2.setOption({
 });
 
 
-var t_ann = Array(40).fill(""),
-    bgp_ann = Array(40).fill(""),
-    bgp_wd = Array(40).fill("")
+var t_ann = Array(25).fill(""),
+    bgp_ann = Array(25).fill(""),
+    bgp_wd = Array(25).fill("")
 
 // callback function
 var update_mychart2 = function (res) {
 
-    // hide animation
+    // hide animation if comment it
     myChart2.hideLoading();
 
     // prepare data
     Array.prototype.push.apply(t_ann, res.data_features[0]);
     Array.prototype.push.apply(bgp_ann, res.data_features[1]);
     Array.prototype.push.apply(bgp_wd, res.data_features[2]);
-    // console.log("push t ann (chart):", t_ann);
-    // console.log("push volume ann (chart):", bgp_ann);
-    if (t_ann.length >= 60 * 2) {
-        // remove the first 10 elements
-        t_ann.splice(0, 10);
-        bgp_ann.splice(0, 10);
-        bgp_wd.splice(0, 10);
+    // console.log("push t (chart):", t_ann);  // for debug
+    // console.log("push volume ann (chart):", bgp_ann);  // for debug
+    if (t_ann.length >= 60 * 5 + 5) {
+        // remove the first 5 elements
+        t_ann.splice(0, 5);
+        bgp_ann.splice(0, 5);
+        bgp_wd.splice(0, 5);
     }
 
     // fill the data
@@ -148,9 +148,7 @@ var update_mychart2 = function (res) {
                 xAxisIndex: 1,
                 yAxisIndex: 1
             }]
-
     });
-
 };
 
 
@@ -160,10 +158,9 @@ $(document).ready(function () {
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
 
     socket.on('server_response_echart2', function (res) {
-        console.log("t ann (server):", res.data_features[0]);
-        console.log("volume ann (server):", res.data_features[1]);
+        // console.log("t (server -> client):", res.data_features[0]);  // for debug
+        // console.log("volume ann (server -> client):", res.data_features[1]);  // for debug
+        // console.log("volume wdrl (server -> client):", res.data_features[2]);  // for debug
         update_mychart2(res);
     });
-
 });
-

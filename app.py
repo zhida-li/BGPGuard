@@ -15,8 +15,8 @@
 # ==============================================
 # main file: app.py
 # ==============================================
-# Last modified: Feb. 20, 2022
-# task: enable disconnect btn
+# Last modified: Feb. 22, 2022
+# task: edit vfbls real-time
 
 # Import the built-in libraries
 import sys
@@ -126,7 +126,7 @@ def app_realtime_thread():
         time_start = time.time()
 
         # Load the data for the front-end (real-time)
-        web_results, t_utc, t_ann, data_for_plot_ann, data_for_plot_wd, count, predicted_labels, \
+        web_results, t_utc, t_ann, data_for_plot_ann, data_for_plot_wdrl, count, predicted_labels, \
         t_cpu, cpus = app_realtime_detection(ALGO, site, count)
 
         # Emit uct date & time, predicted labels of 5min
@@ -137,7 +137,7 @@ def app_realtime_thread():
 
         # Emit features, uct time
         socketio.emit('server_response_echart2',
-                      {'data_features': [t_ann, data_for_plot_ann, data_for_plot_wd], 'count': count},
+                      {'data_features': [t_ann, data_for_plot_ann, data_for_plot_wdrl], 'count': count},
                       namespace='/test_conn')
 
         # Emit labels, uct time
@@ -156,8 +156,8 @@ def app_realtime_thread():
 
         # Subtract the processing time
         time_realTime_server = time_end - time_start
-        print('Entire processing time: %.4f s' % time_realTime_server, '\n',
-              'Current time:', time.strftime('%H:%M:%S', time.localtime()))
+        print('Entire processing time: %.4f s' % time_realTime_server,
+              '\nCurrent time:', time.strftime('%H:%M:%S', time.localtime()))
         t_sleep = time_interval - time_realTime_server
         if t_sleep <= 0:  # if processing time is longer than waiting time
             continue
