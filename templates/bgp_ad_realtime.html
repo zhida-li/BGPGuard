@@ -71,8 +71,6 @@
                         </div>
                     </div>
 
-                    <hr style="height:2px;border-width:0;color:gray;background-color:rgba(128,128,128,0.42)">
-
                     <!-- Buttons for connection and disconnection mr-3: margin-right-->
                     <div class="form-row">
                         <div class="col-md-6">
@@ -84,9 +82,9 @@
                         <div class="col-md-2 offset-md-4">
                             <span class="d-inline-block"
                                   data-toggle="popover" data-trigger="hover" data-content="Pause the real-time task">
-                                <form id="btn_disconnect" method="POST" action="#">
+                                <form id="form_disconnect" method="POST" action="#">
                                     <!-- Disable code for btn: style="pointer-events: none;" disabled -->
-                                    <button type="submit" class="btn btn-secondary btn-block"
+                                    <button id="btn_disconnect" type="submit" class="btn btn-secondary btn-block"
                                             formmethod="POST"
                                     >Disconnect
                                     </button>
@@ -102,9 +100,11 @@
                         </p>
                     </div>
 
+                    <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+
                     <div class="row">
-                        <div class="col-md-6 offset-md-3 text-left">
-                            <p class="lead">Classification results for the past five minutes:</p>
+                        <div class="col-md-6 offset-md-0 text-left">
+                            <p class="lead">Results for the past five minutes:</p>
                             <!-- placeholder: Results for the 1st minute... -->
                             <span id="results0_p"></span>
                             <br>
@@ -115,12 +115,21 @@
                             <span id="results3_p"></span>
                             <br>
                             <span id="results4_p"></span>
+                            <br><br>
+                            <p class="lead">Total time spent:</p>
+                            <span id="results_total_time"></span>
                             <!-- Emit data JS -->
                             <script src="../static/js/data_emit_labels_5min.js"></script>
                             <br>
                         </div>
+
+                        <!-- EChart placeholder: pie -->
+                        <div id="echart_pie" class="col-md-5 offset-md-1" style="height:300px;"></div>
+                        <!-- Data direction: Server => user, EChart JS -->
+                        <script src="../static/js/echart_emit_pieStat.js"></script>
                     </div>
-                    <br>
+
+                    <hr style="height:0px;border:dotted rgba(128,128,128,0.42)">
 
                     <!-- Dot animation -->
                     <div class="d-flex align-items-center">

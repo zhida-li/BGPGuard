@@ -12,7 +12,7 @@ $(document).ready(function () {
     });
 
     // Disconnect the real-time task (client -> server)
-    $('form#btn_disconnect').submit(function (event) {
+    $('form#form_disconnect').submit(function (event) {
         socket.emit('disconnect_request');
         return false;
     });

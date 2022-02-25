@@ -117,6 +117,8 @@ def app_realtime_thread():
     elif site == 'RouteViews':
         time_interval = 15 * 60  # Route Views provides new update msg every 15 minutes
 
+    num_reg, num_ano = 0, 0
+    results_total_time = 0
     while True:
         # if second = 5, wait 1 min until RIPE or Route Views do update
         if int(time.strftime('%M', time.localtime())) % 5 == 0:
@@ -125,27 +127,43 @@ def app_realtime_thread():
         # start processing...
         time_start = time.time()
 
-        # Load the data for the front-end (real-time)
+        # === Load the data for the front-end (real-time) ===
         web_results, t_utc, t_ann, data_for_plot_ann, data_for_plot_wdrl, count, predicted_labels, \
         t_cpu, cpus = app_realtime_detection(ALGO, site, count)
 
+        # Show results
         # Emit uct date & time, predicted labels of 5min
         socketio.emit('server_response_text',
                       {'data_results': [web_results[0], web_results[1], web_results[2], web_results[3], web_results[4]],
                        'data_t': [t_utc]}, namespace='/test_conn')
         socketio.sleep(0.5)
 
-        # Emit features, uct time
-        socketio.emit('server_response_echart2',
-                      {'data_features': [t_ann, data_for_plot_ann, data_for_plot_wdrl], 'count': count},
-                      namespace='/test_conn')
+        # Pie-chart
+        # Emit no. of total regular and anomaly points, total time spent
+        for regAno in predicted_labels:
+            if regAno == 1:
+                num_ano += 1
+            else:
+                num_reg += 1
+        results_total_time += len(predicted_labels)
 
+        socketio.emit('server_response_echart_pie',
+                      {'data_pie': [num_reg, num_ano, results_total_time]}, namespace='/test_conn')
+
+        # Label-chart
         # Emit labels, uct time
         socketio.emit('server_response_echart0',
                       {'data_labels': [t_ann, predicted_labels]},
                       namespace='/test_conn')
         socketio.sleep(0.5)
 
+        # Feature-chart
+        # Emit features, uct time
+        socketio.emit('server_response_echart2',
+                      {'data_features': [t_ann, data_for_plot_ann, data_for_plot_wdrl], 'count': count},
+                      namespace='/test_conn')
+
+        # CPU-chart
         # Emit multi-core cpu usage, uct time
         socketio.emit('server_response_echart_cpu',
                       {'data_cpu': [t_cpu, cpus], 'count': count},

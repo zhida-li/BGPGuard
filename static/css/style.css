@@ -314,6 +314,11 @@ footer ul li {
     /*color: #1e88e5;*/
 }
 
+/* disconnect button background color */
+#btn_disconnect {
+    background: #6c757d;
+}
+
 /* Off-line classification section */
 #ad_offLine h3 {
     margin-bottom: 60px;

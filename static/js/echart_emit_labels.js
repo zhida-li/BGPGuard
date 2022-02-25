@@ -90,7 +90,7 @@ $(document).ready(function () {
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
 
     socket.on('server_response_echart0', function (res) {
-        console.log("labels (server -> client):", res.data_labels[1]);  // for debug
+        // console.log("labels (server -> client):", res.data_labels[1]);  // for debug
         update_mychart0(res);
     });
 });

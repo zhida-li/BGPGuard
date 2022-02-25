@@ -34,7 +34,7 @@ $('#btn_connect').click(function () {
 });
 
 // <section id="ad_realTime">, disconnect button triggers, connect btn changes
-$('#btn_disconnect').click(function () {
+$('#form_disconnect').click(function () {
     $('#btn_connect').html('<span role="status" aria-hidden="true">' +
         '</span>Reload the page and restart detection').addClass('disabled btn-secondary');
 });
