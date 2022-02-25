@@ -108,6 +108,6 @@ $(document).ready(function () {
         update_mychart_pie(res);
         var results_total_time = res.data_pie[2];
         $('#results_total_time').text(results_total_time + " " + " minutes");
-        console.log("Total time (server -> client):", results_total_time);  // for debug
+        // console.log("Total time (server -> client):", results_total_time);  // for debug
     });
 });
