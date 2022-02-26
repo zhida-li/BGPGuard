@@ -116,7 +116,7 @@ var update_mychart2 = function (res) {
     Array.prototype.push.apply(bgp_wd, res.data_features[2]);
     // console.log("push t (chart):", t_ann);  // for debug
     // console.log("push volume ann (chart):", bgp_ann);  // for debug
-    if (t_ann.length >= 60 * 5 + 5) {
+    if (t_ann.length >= 60 * 2 + 5) {
         // remove the first 5 elements
         t_ann.splice(0, 5);
         bgp_ann.splice(0, 5);

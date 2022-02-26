@@ -62,7 +62,7 @@ var update_mychart0 = function (res) {
     Array.prototype.push.apply(bgp_labels, res.data_labels[1]);
     // console.log("push bgp_labels (chart):", bgp_labels);  // for debug
 
-    if (t_ann2.length >= 60 * 5 + 5) {  // extra 5 is the first 5 elements of the queue and will be removed.
+    if (t_ann2.length >= 60 * 2 + 5) {  // extra 5 is the first 5 elements of the queue and will be removed.
         // remove the first 5 elements
         t_ann2.splice(0, 5);
         bgp_labels.splice(0, 5);
