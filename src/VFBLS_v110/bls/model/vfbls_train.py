@@ -4,7 +4,7 @@
     @date Mar. 20, 2020
     @version: 1.1.0
     @description:
-                This module contains the vfbls function for real-time detectoin.
+                This module contains the vfbls function for real-time training/testing.
 
     @copyright Copyright (c) Mar. 20, 2020
         All Rights Reserved
