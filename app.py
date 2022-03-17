@@ -24,7 +24,7 @@ import time
 
 # Import external libraries
 import numpy as np
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, send_file, abort
 from flask_socketio import SocketIO, emit, disconnect
 
 # Import customized libraries
@@ -91,6 +91,18 @@ def analyze_offline():
         # return render_template('bgp_ad_offline.html', result_prediction=result_prediction)
     else:
         return render_template('bgp_ad_offline.html', header2=header_offLine)
+
+
+# Off-Line Download GET request
+@app.route('/download_file', methods=['GET'])
+def download_file():
+    try:
+        return send_file('./src/STAT/sample.zip',
+                         mimetype='application/zip',  # text/csv
+                         attachment_filename='Results_%s.zip' % time.strftime('%b_%d_%Y_%H_%M_%S', time.localtime()),
+                         as_attachment=True)
+    except FileNotFoundError:
+        abort(404)
 
 
 # Contact (route)

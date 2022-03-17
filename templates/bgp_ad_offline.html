@@ -51,7 +51,7 @@ last edit: Feb. 9, 2022
                     <hr style="height:2px;border-width:0;color:gray;background-color:gray">
 
                     <!-- Forms -->
-                    <form action="{# {{ url_for('analyze_offline')}} #}" method="POST">
+                    <form action="{{ url_for('analyze_offline') }}" method="POST">
 
                         <div class="form-row">
                             <label class="col-form-label col-md-3 pt-0 font-italic">Select a collection site:</label>
@@ -166,12 +166,12 @@ last edit: Feb. 9, 2022
                     <hr style="height:2px;border-width:0;color:gray;background-color:gray">
                     <p class="lead">Download result files</p>
 
-                    <span>
-                        <a href="../apps/app_realtime/data_test/DUMP_out.txt" download="FeatureMatrix.txt">
+                    <form action="{{ url_for('download_file') }}" method="GET">
+                        <span>
                             <button class="btn btn-primary"><i class="fa fa-file-download"></i> Download</button>
-                        </a>
-                        Feature matrices, predicted labels
-                    </span>
+                            Feature matrices, predicted labels
+                        </span>
+                    </form>
 
                 </div>
             </div>
