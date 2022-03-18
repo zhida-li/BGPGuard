@@ -1,0 +1,24 @@
+No. of data points in train:
+4580
+
+
+No. of data points in test:
+4060
+
+
+No. of regular data points in train:
+3480
+
+
+No. of regular data points in test:
+3359
+
+
+No. of anomaly data points in train:
+1100
+
+
+No. of anomaly data points in test:
+701
+
+

@@ -19,8 +19,10 @@
 # task: edit vfbls real-time
 
 # Import the built-in libraries
+import os
 import sys
 import time
+import zipfile
 
 # Import external libraries
 import numpy as np
@@ -87,6 +89,14 @@ def analyze_offline():
         context_offLine = app_offline_classification(header_offLine, site_choice)
 
         time.sleep(5)  # to be changed
+        if not os.path.exists('./src/STAT/sample.zip'):
+            # zip results
+            zipObj = zipfile.ZipFile('./src/STAT/sample.zip', 'w')
+            zipObj.write('./src/STAT/train_test_stat.txt')
+            zipObj.write('./src/STAT/labels_RIPE.csv')
+            zipObj.write('./src/STAT/results_64_RIPE.csv')
+            zipObj.close()
+
         return render_template('bgp_ad_offline.html', **context_offLine)
         # return render_template('bgp_ad_offline.html', result_prediction=result_prediction)
     else:

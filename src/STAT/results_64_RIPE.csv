@@ -1,0 +1,12 @@
+lstm_2layer,batch5_test,batch5_f-score,batch10_test,batch10_f-score,batch20_test,batch20_f-score
+,25.2463,28.1997,29.0887,27.8988,46.8966,22.2783
+lstm_3layer,batch5_test,batch5_f-score,batch10_test,batch10_f-score,batch20_test,batch20_f-score
+,20.6897,29.5405,22.2660,29.1105,35.2709,26.6332
+lstm_4layer,batch5_test,batch5_f-score,batch10_test,batch10_f-score,batch20_test,batch20_f-score
+,20.3448,29.2960,21.6010,29.1880,41.9951,26.5211
+gru_2layer,batch5_test,batch5_f-score,batch10_test,batch10_f-score,batch20_test,batch20_f-score
+,23.8424,28.5582,31.5271,27.1488,44.2611,23.3141
+gru_3layer,batch5_test,batch5_f-score,batch10_test,batch10_f-score,batch20_test,batch20_f-score
+,20.0985,29.1703,24.4089,29.5293,41.7488,23.6851
+gru_4layer,batch5_test,batch5_f-score,batch10_test,batch10_f-score,batch20_test,batch20_f-score
+,20.5665,29.3847,21.6749,29.6771,40.6158,27.0058
