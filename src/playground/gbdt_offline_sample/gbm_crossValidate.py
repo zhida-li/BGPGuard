@@ -40,8 +40,8 @@ def enablePrint():
 #######################################################################
 # GBDT parameters: list format
 # specify the parameters for cross-validation
-num_estimators = [10, 50, 100]  # <-- specify no. of estimators
-learn_rate = [0.01, 0.1]  # <-- specify learning rates
+num_estimators = [10, 50, 100, 200, 300]  # <-- specify no. of estimators
+learn_rate = [0.01, 0.05, 0.1]  # <-- specify learning rates
 
 dataset_exp = ['slammer']  # <-- specify datasets, may add more to the list
 
