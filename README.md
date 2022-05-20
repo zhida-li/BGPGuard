@@ -38,6 +38,7 @@ BGPGaurd
 │   ├── data_split
 │   ├── data_test
 │   └── parmSel
+│   └── playground
 ├── static
 │   ├── css
 │   │   └── style.css
@@ -59,6 +60,14 @@ BGPGaurd
     ├── contact.html
     ├── index.html
     └── layout.html
+```
+
+---
+
+## Install the external Python libraries by running:
+
+```bash
+> pip install -r requirements.txt
 ```
 
 Run app:
