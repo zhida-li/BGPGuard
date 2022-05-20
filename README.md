@@ -69,6 +69,9 @@ BGPGaurd
 ```bash
 > pip install -r requirements.txt
 ```
+## The C# compiler should be installed prior to executing the BGP C\# tool.
+**Mono**: an open source version of Microsoft .NET framework. Mono includes a C\# compiler for several operating systems 
+such as macOS, Linux, and Windows.
 
 Run app:
 
