@@ -73,6 +73,8 @@ BGPGaurd
     ├── index.html
     └── layout.html
 ```
+The `src` directory contains the source code for the real-time detection and off-line classification tasks.
+Various Python functions have been developed to implement and incorporate the anomaly detection steps.
 
 ---
 
@@ -122,4 +124,11 @@ The following command is used to start the application:
 > export FLASK_ENV=development
 > flask run
  * Running on http://127.0.0.1:5000/
+```
+
+---
+## Playground
+Sample code for gradient boosting machines may be run without launching the `app.py`:
+```bash
+./src/playground/gbdt_offline_sample
 ```
