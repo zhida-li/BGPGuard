@@ -1,8 +1,12 @@
-# BGPGuard
+<p align="center">
+  <img width="50%" src="./static/imgs/bgpGuard_logo.png" alt="BGPGuard logo">
+</p>
 
-Web application of the BGP Anomaly Detection Framework.
-###### Python 3.6
+<h2 align="center">
+  BGP anomaly detection tool that integrates various stages of the anomaly detection process
+</h2>
 
+## About BGPGuard
 The web-based version of **BGPGuard** offers 
 an interactive interface with a better view for monitoring and performing experiments. 
 The web-based application includes several functions from the terminal-based application.
@@ -79,6 +83,7 @@ Various Python functions have been developed to implement and incorporate the an
 ---
 
 ## 🏗️ Getting Started with BGPGuard
+###### Python 3.6
 
 ### External Libraries
 The web-based application relies on additional external libraries. 
