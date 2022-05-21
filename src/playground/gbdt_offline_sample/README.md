@@ -8,7 +8,7 @@ GBDT Python sample code for network anomaly detection
 
 ###### Python 3.6 or newer
 
-*Requirement Python libraries:*
+## Requirement Python libraries:
 
 - numpy
 
@@ -22,17 +22,17 @@ GBDT Python sample code for network anomaly detection
 
 - catboost
 
-## Install the external Python libraries by running:
+## 🏗️ Install the external Python libraries by running:
 
 ```bash
-> pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
-#n the cross-validation file
-Specify the hyper-parameters, then run:
+## 🚀 Run experiments
+### 1. Specify the hyper-parameters in n the cross-validation file, then run:
 
 ```bash
-> python gbm_crossValidate.py
+python gbm_crossValidate.py
 ```
 
 Folders are generated: 
@@ -42,19 +42,19 @@ Folders are generated:
 - tempAcc_lightgbm_slammer_8
 
 Then, the best sets of parameters (num_estimators and learn_rate) are saved in 
-_lightgbm_param_final_slammer.csv_ (the last two columns).
+`lightgbm_param_final_slammer.csv` (the last two columns).
 
-Enter the best parameters into _final_eval_gbm.py_, and run it:
+### 2. Enter the best parameters into `final_eval_gbm.py`, and run:
 
 ```bash
-> python final_eval_gbm.py
+python final_eval_gbm.py
 ```
 
-Results are saved in _lightgbm_param_final_slammer.csv_.
+Results are saved in `lightgbm_param_final_slammer.csv`.
 
 ---
 
-**Note:**
+### 📒 Note:
 
 Cross-validation python file may be edited if new datasets will be added:
 

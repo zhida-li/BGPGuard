@@ -14,7 +14,7 @@ Its back-end is developed using [Flask](https://flask.palletsprojects.com/en/2.0
 
 ---
 
-Structure:
+## Structure:
 
 ``` 
 BGPGaurd
@@ -78,7 +78,9 @@ Various Python functions have been developed to implement and incorporate the an
 
 ---
 
-## External Libraries
+## 🏗️ Getting Started with BGPGuard
+
+### External Libraries
 The web-based application relies on additional external libraries. 
 The external CSS and JavaScript libraries provided by [_jsDelivr_](https://www.jsdelivr.com) have been 
 included in `layout.html`.
@@ -88,7 +90,7 @@ The Python libraries installed by [_pip_](https://pip.pypa.io/en/stable/) are:
 on multi-dimensional arrays and on matrices generated during the process.
 - [_SciPy_](https://scipy.org): dependency of the _scikit-learn_ library. 
 _SciPy_'s _zscore_: function used to perform normalization.
-- [_scikit-learn_](https://scikit-learn.org/stable)}: employed for processing data and calculating performance metrics.
+- [_scikit-learn_](https://scikit-learn.org/stable): employed for processing data and calculating performance metrics.
 - [_PyTorch_](https://pytorch.org): used for developing deep learning models.
 
 - [_Flask_](https://flask.palletsprojects.com/en/2.0.x): web framework based on _Werkzeug_
@@ -101,34 +103,41 @@ create a web server gateway interface (WSGI).
 and expressions allowed to include in HTML files. 
 - [_Flask-SocketIO_](https://flask-socketio.readthedocs.io/en/latest): offers bi-directional communications 
 with low latency between the clients (front-end) and the server (back-end) for _Flask_ applications.
-- [_python-engineio_](https://python-socketio.readthedocs.io/en/latest): implementation of the Engine.IO in Python. 
+- [_python-engineio_](https://python-socketio.readthedocs.io/en/latest): implementation of the _Engine.IO_ in Python. 
 - [_python-socketio_](https://github.com/miguelgrinberg/python-engineio): library for real-time communication 
 between client and server based on WebSocket. 
 - [_Eventlet_](https://eventlet.net): networking library for executing asynchronous tasks.
 
-## Install the external Python libraries by running:
+### Install the external Python libraries by running:
 
 ```bash
-> pip install -r requirements.txt
+pip install -r requirements.txt
 ```
-## The C# compiler should be installed prior to executing the BGP C# tool.
+
+### The C# compiler should be installed prior to executing the BGP C# tool.
 - [_Mono_](https://www.mono-project.com): an open source version of Microsoft .NET framework. 
 Mono includes a C# compiler for several operating systems 
 such as macOS, Linux, and Windows.
 
+## 🚀 Launching BGPGuard
 The Python file `app.py` is used to execute the application.
 The following command is used to start the application:
 
 ```bash
-> export FLASK_APP=app.py
-> export FLASK_ENV=development
-> flask run
- * Running on http://127.0.0.1:5000/
+export FLASK_APP=app.py
+export FLASK_ENV=development
+flask run
+```
+
+Running on:
+```bash
+ http://127.0.0.1:5000/
 ```
 
 ---
-## Playground
+## 🎡 Playground
 Sample code for gradient boosting machines may be run without launching the `app.py`:
 ```bash
 ./src/playground/gbdt_offline_sample
 ```
+Please see details in `README.md`.
