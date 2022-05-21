@@ -7,14 +7,28 @@
 </h2>
 
 ## About BGPGuard
-The web-based version of **BGPGuard** offers 
-an interactive interface with a better view for monitoring and performing experiments. 
-The web-based application includes several functions from the terminal-based application.
-It is developed using additional programming languages, frameworks, and functions.
+**BGPGuard** is used to detect BGP anomalous events based on 
+routing records collected from major Internet exchange points worldwide. 
+It also facilitates creating new machine learning models based on historical BGP anomalous events.
+**BGPGuard** integrates various stages of the anomaly detection process. 
+The tool consists of: data download, feature extraction, label refinement, data partition, data processing, 
+machine learning algorithms, parameter selection, machine learning models, and classification modules.
+**BGPGuard** is based on Python and JavaScript and has been developed with both terminal-based 
+and web-based applications for Linux platforms.
+The web-based version of **BGPGuard** offers an interactive interface with a better view for monitoring and performing experiments. 
 Its front-end is built based on HTML, CSS ([Bootstrap](https://getbootstrap.com): an open-source CSS framework), 
 and [Socket.IO](https://socket.io) (a transport protocol written in a JavaScript for real-time web applications).
 Its back-end is developed using [Flask](https://flask.palletsprojects.com/en/2.0.x) 
 (a micro web framework written in Python).
+
+**BGPGuard** is used for real-time anomaly detection or off-line data classification 
+based on messages collected from [RIPE](https://www.ripe.net/analyse) or [Route Views](http://www.routeviews.org).
+For real-time anomaly detection, BGP _update_ messages are retrieved, processed, and analyzed using available pre-trained models. 
+The off-line classification is based on the specified start and end dates, times of 
+the anomalous event, partitioning of the training and test datasets, and 
+machine learning algorithms (GBDT, CNN, RNN, or [VFBLS](https://ieeexplore.ieee.org/document/9430511)).
+
+![](./static/imgs/bgpGuard_modules.png)
 
 ---
 
