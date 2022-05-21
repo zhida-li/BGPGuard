@@ -1,6 +1,18 @@
 # BGPGuard
 
-A Flask web application of the BGP Anomaly Detection Framework.
+Web application of the BGP Anomaly Detection Framework.
+###### Python 3.6
+
+The web-based version of **BGPGuard** offers 
+an interactive interface with a better view for monitoring and performing experiments. 
+The web-based application includes several functions from the terminal-based application.
+It is developed using additional programming languages, frameworks, and functions.
+Its front-end is built based on HTML, CSS ([Bootstrap](https://getbootstrap.com): an open-source CSS framework), 
+and [Socket.IO](https://socket.io) (a transport protocol written in a JavaScript for real-time web applications).
+Its back-end is developed using [Flask](https://flask.palletsprojects.com/en/2.0.x) 
+(a micro web framework written in Python).
+
+---
 
 Structure:
 
@@ -64,16 +76,46 @@ BGPGaurd
 
 ---
 
+## External Libraries
+The web-based application relies on additional external libraries. 
+The external CSS and JavaScript libraries provided by [_jsDelivr_](https://www.jsdelivr.com) have been 
+included in `layout.html`.
+
+The Python libraries installed by [_pip_](https://pip.pypa.io/en/stable/) are:
+- [_NumPy_](https://numpy.org): used to perform mathematical operations 
+on multi-dimensional arrays and on matrices generated during the process.
+- [_SciPy_](https://scipy.org): dependency of the _scikit-learn_ library. 
+_SciPy_'s _zscore_: function used to perform normalization.
+- [_scikit-learn_](https://scikit-learn.org/stable)}: employed for processing data and calculating performance metrics.
+- [_PyTorch_](https://pytorch.org): used for developing deep learning models.
+
+- [_Flask_](https://flask.palletsprojects.com/en/2.0.x): web framework based on _Werkzeug_
+and _Jinja_.
+(The _Flask_'s functions are used to transfer variables and render web pages. 
+_Flask_ also processes the GET/POST requests from the front-end.)
+- [_Werkzeug_](https://werkzeug.palletsprojects.com/en/2.0.x): web application library used to 
+create a web server gateway interface (WSGI).
+- [_Jinja_](https://jinja.palletsprojects.com/en/3.0.x): web template engine. Variables, statements, 
+and expressions allowed to include in HTML files. 
+- [_Flask-SocketIO_](https://flask-socketio.readthedocs.io/en/latest): offers bi-directional communications 
+with low latency between the clients (front-end) and the server (back-end) for _Flask_ applications.
+- [_python-engineio_](https://python-socketio.readthedocs.io/en/latest): implementation of the Engine.IO in Python. 
+- [_python-socketio_](https://github.com/miguelgrinberg/python-engineio): library for real-time communication 
+between client and server based on WebSocket. 
+- [_Eventlet_](https://eventlet.net): networking library for executing asynchronous tasks.
+
 ## Install the external Python libraries by running:
 
 ```bash
 > pip install -r requirements.txt
 ```
-## The C# compiler should be installed prior to executing the BGP C\# tool.
-**Mono**: an open source version of Microsoft .NET framework. Mono includes a C\# compiler for several operating systems 
+## The C# compiler should be installed prior to executing the BGP C# tool.
+- [_Mono_](https://www.mono-project.com): an open source version of Microsoft .NET framework. 
+Mono includes a C# compiler for several operating systems 
 such as macOS, Linux, and Windows.
 
-Run app:
+The Python file `app.py` is used to execute the application.
+The following command is used to start the application:
 
 ```bash
 > export FLASK_APP=app.py

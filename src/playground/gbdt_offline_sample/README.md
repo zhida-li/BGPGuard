@@ -6,7 +6,7 @@ GBDT Python sample code for network anomaly detection
 
 ---
 
-##### Python 3.6 or newer
+###### Python 3.6 or newer
 
 *Requirement Python libraries:*
 
