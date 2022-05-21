@@ -56,7 +56,7 @@ BGPGaurd
 │   │   └── style.css
 │   ├── imgs
 │   │   ├── bgpGuard_framework.png
-│   │   ├── bgpGuard_index__jumbotron.png
+│   │   ├── bgpGuard_index_jumbotron.png
 │   │   ├── bgpGuard_index_offline.png
 │   │   ├── bgpGuard_index_realtime.png
 │   │   └── profile_zl.png
