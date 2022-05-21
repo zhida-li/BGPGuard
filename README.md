@@ -59,17 +59,7 @@ BGPGaurd
 │   ├── css
 │   │   └── style.css
 │   ├── imgs
-│   │   ├── bgpGuard_framework.png
-│   │   ├── bgpGuard_index_jumbotron.png
-│   │   ├── bgpGuard_index_offline.png
-│   │   ├── bgpGuard_index_realtime.png
-│   │   └── profile_zl.png
 │   └── js
-│       ├── click_func.js
-│       ├── data_emit_labels_5min.js
-│       ├── echart_emit_cpu.js
-│       ├── echart_emit_features.js
-│       └── echart_emit_labels.js
 └── templates
     ├── bgp_ad_offline.html
     ├── bgp_ad_realtime.html
