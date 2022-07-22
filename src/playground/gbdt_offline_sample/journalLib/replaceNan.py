@@ -27,6 +27,6 @@ def replaceNan(matrix):
         for col in range(0, matrix.shape[1]):
 
             if math.isnan(matrix[row, col]):
-                matrix[row, col] = np.float128('0')
+                matrix[row, col] = np.float64('0')
 
     return
