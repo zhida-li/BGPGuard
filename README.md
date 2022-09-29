@@ -7,7 +7,7 @@
 </h2>
 
 ## About BGPGuard
-**BGPGuard** is used to detect BGP anomalous events based on 
+**BGPGuard** is used to detect Border Gateway Protocol (BGP) anomalous events based on 
 routing records collected from major Internet exchange points worldwide. 
 It also facilitates creating new machine learning models based on historical BGP anomalous events.
 **BGPGuard** integrates various stages of the anomaly detection process. 
@@ -150,3 +150,16 @@ Sample code for gradient boosting machines may be run without launching the `app
 ./src/playground/gbdt_offline_sample
 ```
 Please see details in `README.md`.
+
+---
+## 🗃️ Our generated BGP Datasets
+We have download the raw data and processed the BGP routing records.
+Five well-known BGP anomalous events are publicly available from [IEEE DataPort](https://ieee-dataport.org/):
+WannaCrypt, Moscow blackout, Slammer, Nimda, Code Red I, occurred in May 2017, May 2005, January 2003, September 2001, and July 2001, respectively.
+The Reseaux IP Europeens (RIPE) BGP update messages are publicly available from the Network Coordination Centre (NCC) and contain:
+WannaCrypt, Moscow blackout, Slammer, Nimda, Code Red I, and regular data: https://www.ripe.net/analyse.
+Regular data are also collected from [BCNET](http://www.bc.net).
+
+BGP datasets with routing records collected from Reseaux IP Europeens (RIPE), BCNET, and Route Views:
+- [Data collected from Reseaux IP Europeens (RIPE) and BCNET](https://ieee-dataport.org/open-access/border-gateway-protocol-bgp-routing-records-reseaux-ip-europeens-ripe-and-bcnet)
+- [Data collected from Route Views](https://ieee-dataport.org/open-access/border-gateway-protocol-bgp-routing-records-route-views)
