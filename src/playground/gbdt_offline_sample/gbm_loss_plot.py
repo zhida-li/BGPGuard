@@ -31,9 +31,9 @@ import matplotlib.pyplot as plt
 from sklearn import metrics
 from sklearn.metrics import f1_score
 
-# from xgboost import XGBClassifier
+from xgboost import XGBClassifier
 from lightgbm import LGBMClassifier
-# from catboost import CatBoostClassifier
+from catboost import CatBoostClassifier
 # from sklearn.ensemble import GradientBoostingClassifier
 
 # Import customized libraries
