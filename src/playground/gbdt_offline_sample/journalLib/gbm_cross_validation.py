@@ -74,7 +74,8 @@ def gbm_cross_validation(num_estimators, learn_rate, algo_gbm='lightgbm', data_k
 
     # NUM_FEATURES = 'all'  # 'all', 16, 8
     # data_kfold = 10
-    dataSplit = TimeSeriesSplit(n_splits=data_kfold)  # k-fold cross validation
+    # dataSplit = TimeSeriesSplit(n_splits=data_kfold)  # k-fold cross validation
+    dataSplit = KFold(n_splits=data_kfold)  # k-fold cross validation
 
     # GBDT parameters
     # NUM_ESTIMATORS = [10, 20]
@@ -148,19 +149,24 @@ def gbm_cross_validation(num_estimators, learn_rate, algo_gbm='lightgbm', data_k
             time_start = time.time()
             if algo_gbm == 'lightgbm':
                 # gbm = LGBMClassifier(n_estimators=estNum, learning_rate=lr)
-                gbm = LGBMClassifier(n_estimators=estNum, learning_rate=lr, max_depth=-1, subsample=1, num_leaves=31,
+                gbm = LGBMClassifier(n_estimators=estNum, learning_rate=lr, max_depth=6, subsample=1, num_leaves=31,
                                      boosting_type='gbdt')  #
             elif algo_gbm == 'xgboost':
                 gbm = XGBClassifier(n_estimators=estNum, learning_rate=lr, max_depth=6, subsample=1,
                                     booster='gbtree')  #
             elif algo_gbm == 'catboost':
                 gbm = CatBoostClassifier(n_estimators=estNum, learning_rate=lr, max_depth=6, subsample=1, num_leaves=31,
-                                         boosting_type='Plain')  # or Ordered, Plain type
+                                         boosting_type='Plain')  # allow_const_label=True)  # or Ordered, Plain type# or Ordered, Plain type
             else:
                 print('Re-enter the algorithm')
                 exit()
 
-            gbm.fit(X, Y.ravel())
+            # gbm.fit(X, Y.ravel())            
+            try:
+                gbm.fit(X, Y.ravel())
+            except catboost.CatBoostError:
+                continue
+
             time_end = time.time()
             # Validation
             predicted = gbm.predict(Xx)
