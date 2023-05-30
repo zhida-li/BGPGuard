@@ -87,7 +87,7 @@ Various Python functions have been developed to implement and incorporate the an
 ---
 
 ## 🏗️ Getting Started with BGPGuard
-###### Python 3.6
+###### Python 3.7 or Python 3.8
 
 ### External Libraries
 The web-based application relies on additional external libraries. 
