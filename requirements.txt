@@ -4,7 +4,7 @@ scikit-learn
 torch==1.13.1
 torchaudio==0.13.1
 torchvision==0.14.1
-Flask
+Flask==2.0.2
 Flask-Login==0.5.0
 Flask-Session==0.4.0
 Flask_SocketIO==4.3.2
@@ -14,6 +14,6 @@ itsdangerous
 Jinja2
 MarkupSafe
 six
-Werkzeug
+Werkzeug==2.0.1
 eventlet
 psutil
