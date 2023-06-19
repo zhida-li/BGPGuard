@@ -83,18 +83,34 @@ def analyze_offline():
     if model_params == set(request.form.keys()):
         print("\n Server checked: Parameter received from the client :-) \n")
 
-        site_choice = request.form.get('site_choice')  # or use 'request.form['']' due to dict format
+        site = request.form.get('site_choice')  # or use 'request.form['']' due to dict format
+        site = 'RIPE' if site == 'ripe' else 'Route Views'
+        start_date = request.form.get('start_date_key')
+        end_date = request.form.get('end_date_key')
+        start_date_anomaly = request.form.get('start_date_anomaly_key')
+        end_date_anomaly = request.form.get('end_date_anomaly_key')
+        start_time_anomaly = request.form.get('start_time_anomaly_key')
+        end_time_anomaly = request.form.get('end_time_anomaly_key')
+        cut_pct = request.form.get('cut_pct_key')
+        rnn_seq = request.form.get('rnn_seq_key')
 
+        input_exp_key = [site, start_date, end_date, start_date_anomaly, end_date_anomaly, start_time_anomaly,
+                         end_time_anomaly, cut_pct, rnn_seq]
         # Load the dict data for the front-end (off-line)
-        context_offLine = app_offline_classification(header_offLine, site_choice)
+        context_offLine = app_offline_classification(header_offLine, input_exp_key)
 
         time.sleep(5)  # to be changed
-        if not os.path.exists('./src/STAT/sample.zip'):
+        if not os.path.exists('./src/STAT/results.zip'):
             # zip results
-            zipObj = zipfile.ZipFile('./src/STAT/sample.zip', 'w')
+            zipObj = zipfile.ZipFile('./src/STAT/results.zip', 'w')
             zipObj.write('./src/STAT/train_test_stat.txt')
-            zipObj.write('./src/STAT/labels_RIPE.csv')
-            zipObj.write('./src/STAT/results_64_RIPE.csv')
+            zipObj.write('./src/STAT/labels_*.csv')  # RIPE or Route Views
+            zipObj.write('./src/STAT/results_*.csv')  # (* = cut_pct, site)
+
+            # zipObj = zipfile.ZipFile('./src/STAT/sample.zip', 'w')  # for test Download function
+            # zipObj.write('./src/STAT/train_test_stat.txt')  # for test Download function
+            # zipObj.write('./src/STAT/labels_RIPE.csv')  # for test Download function
+            # zipObj.write('./src/STAT/results_64_RIPE.csv')  # for test Download function
             zipObj.close()
 
         return render_template('bgp_ad_offline.html', **context_offLine)
@@ -151,7 +167,7 @@ def app_realtime_thread():
 
         # === Load the data for the front-end (real-time) ===
         web_results, t_utc, t_ann, data_for_plot_ann, data_for_plot_wdrl, count, predicted_labels, \
-        t_cpu, cpus = app_realtime_detection(ALGO, site, count)
+            t_cpu, cpus = app_realtime_detection(ALGO, site, count)
 
         # Show results
         # Emit uct date & time, predicted labels of 5min

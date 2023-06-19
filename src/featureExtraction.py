@@ -41,7 +41,8 @@ def feature_extractor_single(site, file_name='DUMP'):
                         rm %s ; \
                         cd ..; cd ..; cd ..; cd ..; " % (file_name, file_name))
     elif site == 'RouteViews':
-        subprocess_cmd("mv ./data_routeviews/%s ./CSharp_Tool_BGP/ConsoleApplication1/bin/Release/ ; \
+        subprocess_cmd("cd src/; \
+                        mv ./data_routeviews/%s ./CSharp_Tool_BGP/ConsoleApplication1/bin/Release/ ; \
                         cd CSharp_Tool_BGP/ConsoleApplication1/bin/Release/ ; \
                         mono ConsoleApplication1.exe >/dev/null ; \
                         rm %s ; \
@@ -85,7 +86,8 @@ def feature_extractor_multi(start_date, end_date, site):
         output_file_list = []
         for date_i in date_list:
             file_name = 'DUMP_%s' % date_i
-            subprocess_cmd("mv ./data_ripe/%s/%s ./CSharp_Tool_BGP/ConsoleApplication1/bin/Release/ ; \
+            subprocess_cmd("cd src/; \
+                            mv ./data_ripe/%s/%s ./CSharp_Tool_BGP/ConsoleApplication1/bin/Release/ ; \
                             cd CSharp_Tool_BGP/ConsoleApplication1/bin/Release/ ; \
                             mv %s DUMP ; \
                             mono ConsoleApplication1.exe >/dev/null ; \
@@ -112,14 +114,15 @@ def feature_extractor_multi(start_date, end_date, site):
             output_file_list.append(output_file)
 
             # Move output_file
-            subprocess_cmd("mv ./CSharp_Tool_BGP/ConsoleApplication1/bin/Release/%s \
+            subprocess_cmd("cd src/; mv ./CSharp_Tool_BGP/ConsoleApplication1/bin/Release/%s \
                                 ./data_split/" % output_file)
 
     elif site == 'RouteViews':
         output_file_list = []
         for date_i in date_list:
             file_name = 'DUMP_%s' % date_i
-            subprocess_cmd("mv ./data_routeviews/%s/%s ./CSharp_Tool_BGP/ConsoleApplication1/bin/Release/ ; \
+            subprocess_cmd("cd src/; \
+                            mv ./data_routeviews/%s/%s ./CSharp_Tool_BGP/ConsoleApplication1/bin/Release/ ; \
                             cd CSharp_Tool_BGP/ConsoleApplication1/bin/Release/ ; \
                             mv %s DUMP ; \
                             mono ConsoleApplication1.exe >/dev/null ; \
@@ -146,7 +149,7 @@ def feature_extractor_multi(start_date, end_date, site):
             output_file_list.append(output_file)
 
             # Move output_file
-            subprocess_cmd("mv ./CSharp_Tool_BGP/ConsoleApplication1/bin/Release/%s \
+            subprocess_cmd("cd src/; mv ./CSharp_Tool_BGP/ConsoleApplication1/bin/Release/%s \
                                 ./data_split/" % output_file)
     else:
         print("Wrong name")

@@ -35,10 +35,10 @@ def label_generator(start_date_anomaly, end_date_anomaly, start_time_anomaly, en
     d = {}  # use dictionary
     for i, DUMPout in enumerate(output_file_list):
         if i == 0:
-            d["DUMPout_%d" % i] = np.loadtxt("./data_split/%s" % output_file_list[i])
+            d["DUMPout_%d" % i] = np.loadtxt("./src/data_split/%s" % output_file_list[i])
             matrix = d["DUMPout_%d" % i]
         else:
-            d["DUMPout_%d" % i] = np.loadtxt("./data_split/%s" % output_file_list[i])
+            d["DUMPout_%d" % i] = np.loadtxt("./src/data_split/%s" % output_file_list[i])
             matrix1 = d["DUMPout_%d" % i]
             matrix = np.append(matrix, matrix1, axis=0)
     # print('d keys: ', d.keys())  # class: dict_keys
@@ -77,7 +77,7 @@ def label_generator(start_date_anomaly, end_date_anomaly, start_time_anomaly, en
     # Get the number of anomaly
     # num_anomaly = len(np.where(labels==1)[0])  # May be returned
     # print("Number of anomaly:", num_anomaly)
-    np.savetxt('./STAT/labels_%s.csv' % site, labels, delimiter=',', fmt='%d')
+    np.savetxt('./src/STAT/labels_%s.csv' % site, labels, delimiter=',', fmt='%d')
 
     print("--------------------Label Generation-end----------------------\n")
 
