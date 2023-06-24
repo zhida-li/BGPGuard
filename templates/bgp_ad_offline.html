@@ -1,6 +1,6 @@
 <!--
 author: Zhida Li
-last edit: Feb. 9, 2022
+last edit: June 24, 2023
 -->
 {% extends "layout.html" %}
 
@@ -155,8 +155,8 @@ last edit: Feb. 9, 2022
 
                     {#                    <hr style="height:2px;border-width:0;color:gray;background-color:gray">#}
 
-                    <p>Collection site selected: {{ site_selected }}</p>
-                    <p>Prediction: {{ result_prediction }}</p>
+                    <p>Results: {{ site_selected }}</p>
+                    <p>Parameters: {{ result_prediction }}</p>
                 </div>
             </div>
 
@@ -169,7 +169,7 @@ last edit: Feb. 9, 2022
                     <form action="{{ url_for('download_file') }}" method="GET">
                         <span>
                             <button class="btn btn-primary"><i class="fa fa-file-download"></i> Download</button>
-                            Feature matrices, predicted labels
+                            results.zip: Classification results, labels, and train/test statistics
                         </span>
                     </form>
 

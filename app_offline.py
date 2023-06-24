@@ -16,7 +16,7 @@
 # ==============================================
 # bgpGuard off-line module
 # ==============================================
-# Last modified: Feb. 19, 2022
+# Last modified: June 24, 2022
 
 # Import the built-in libraries
 import time
@@ -42,15 +42,6 @@ from src.subprocess_cmd import subprocess_cmd
 
 # sys.path.append('./src/VFBLS_v110')
 from src.VFBLS_v110.VFBLS_realtime import vfbls_demo
-
-# RNN models
-from src.RNNMdls.lstm_2layer_load import lstm2_load
-from src.RNNMdls.lstm_3layer_load import lstm3_load
-from src.RNNMdls.lstm_4layer_load import lstm4_load
-from src.RNNMdls.gru_2layer_load import gru2_load
-from src.RNNMdls.gru_3layer_load import gru3_load
-from src.RNNMdls.gru_4layer_load import gru4_load
-from src.RNNMdls.gru_2layer_demo import gru2_demo
 
 
 def app_offline_classification(header_offLine, input_exp_key):
@@ -88,7 +79,7 @@ def app_offline_classification(header_offLine, input_exp_key):
     data_downloader_multi(start_date, end_date, site, collector_ripe)
     output_file_list = feature_extractor_multi(start_date, end_date, site)
     # dataAdjustment(site, output_file_list)
-    output_file_list = ["DUMP_20050524_out.txt", "DUMP_20050525_out.txt", "DUMP_20050526_out.txt"]
+    # output_file_list = ["DUMP_20030123_out.txt", "DUMP_20030124_out.txt", "DUMP_20030125_out.txt"]  # for debug
     labels = label_generator(start_date_anomaly, end_date_anomaly, start_time_anomaly, end_time_anomaly, site,
                              output_file_list)
     data_partition(cut_pct, site, output_file_list, labels, rnn_seq)
@@ -122,7 +113,7 @@ def app_offline_classification(header_offLine, input_exp_key):
 
     # Information from back-end to front-end, "Results are available"
     context_offLine = {"result_prediction": input_exp_key,
-                       "site_selected": site,
+                       "site_selected": "Results are ready to download!",
                        "header2": header_offLine}
     return context_offLine
 

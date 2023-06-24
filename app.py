@@ -15,14 +15,15 @@
 # ==============================================
 # main file: app.py
 # ==============================================
-# Last modified: Feb. 22, 2022
-# task: edit vfbls real-time
+# Last modified: June 24, 2023
+# task: updated offline experiment
 
 # Import the built-in libraries
 import os
 import sys
 import time
 import zipfile
+import glob
 
 # Import external libraries
 import numpy as np
@@ -84,7 +85,7 @@ def analyze_offline():
         print("\n Server checked: Parameter received from the client :-) \n")
 
         site = request.form.get('site_choice')  # or use 'request.form['']' due to dict format
-        site = 'RIPE' if site == 'ripe' else 'Route Views'
+        site = 'RIPE' if site == 'ripe' else 'RouteViews'
         start_date = request.form.get('start_date_key')
         end_date = request.form.get('end_date_key')
         start_date_anomaly = request.form.get('start_date_anomaly_key')
@@ -100,18 +101,25 @@ def analyze_offline():
         context_offLine = app_offline_classification(header_offLine, input_exp_key)
 
         time.sleep(5)  # to be changed
-        if not os.path.exists('./src/STAT/results.zip'):
-            # zip results
-            zipObj = zipfile.ZipFile('./src/STAT/results.zip', 'w')
-            zipObj.write('./src/STAT/train_test_stat.txt')
-            zipObj.write('./src/STAT/labels_*.csv')  # RIPE or Route Views
-            zipObj.write('./src/STAT/results_*.csv')  # (* = cut_pct, site)
+        print("--------------------Saving Results-begin--------------------------")
+        # if not os.path.exists('./src/STAT/results.zip'):
+        # zip results
+        zipObj = zipfile.ZipFile('./src/STAT/results.zip', 'w')
+        zipObj.write('./src/STAT/train_test_stat.txt')
+        # Use glob find the csv file with prefix "labels_"
+        for file in glob.glob('./src/STAT/labels_*.csv'):
+            zipObj.write(file)  # RIPE or Route Views
+        for file in glob.glob('./src/STAT/results_*.csv'):
+            zipObj.write(file)  # (* = cut_pct, site)
+        # zipObj.write('./src/STAT/labels_*.csv')
+        # zipObj.write('./src/STAT/results_*.csv')
 
-            # zipObj = zipfile.ZipFile('./src/STAT/sample.zip', 'w')  # for test Download function
-            # zipObj.write('./src/STAT/train_test_stat.txt')  # for test Download function
-            # zipObj.write('./src/STAT/labels_RIPE.csv')  # for test Download function
-            # zipObj.write('./src/STAT/results_64_RIPE.csv')  # for test Download function
-            zipObj.close()
+        # zipObj = zipfile.ZipFile('./src/STAT/sample.zip', 'w')  # for test Download function
+        # zipObj.write('./src/STAT/train_test_stat.txt')  # for test Download function
+        # zipObj.write('./src/STAT/labels_RIPE.csv')  # for test Download function
+        # zipObj.write('./src/STAT/results_64_RIPE.csv')  # for test Download function
+        zipObj.close()
+        print("--------------------Saving Results-end--------------------------")
 
         return render_template('bgp_ad_offline.html', **context_offLine)
         # return render_template('bgp_ad_offline.html', result_prediction=result_prediction)
@@ -123,7 +131,7 @@ def analyze_offline():
 @app.route('/download_file', methods=['GET'])
 def download_file():
     try:
-        return send_file('./src/STAT/sample.zip',
+        return send_file('./src/STAT/results.zip',
                          mimetype='application/zip',  # text/csv
                          attachment_filename='Results_%s.zip' % time.strftime('%b_%d_%Y_%H_%M_%S', time.localtime()),
                          as_attachment=True)
