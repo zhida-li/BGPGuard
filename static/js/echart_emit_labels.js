@@ -9,7 +9,7 @@ myChart0.showLoading();
 
 myChart0.setOption({
     title: {
-        text: 'Results vs. time'
+        text: 'Prediction vs. time'
     },
     tooltip: {
         trigger: 'axis',

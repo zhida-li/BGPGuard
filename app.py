@@ -147,16 +147,22 @@ def contact():
 
 # WebSocket for Real-Time Detection  -begin
 @socketio.on('main_event', namespace='/test_conn')
-def test_connect():
+def test_connect(message):
+    mem = message.get('selected_option1')  # Get the selected option from the message
+    ALGO = message.get('selected_option2')  # Get the selected option from the message
+    print("Received feature option: ", mem)
+    print("Received algorithm option: ", ALGO)
     global thread
     with thread_lock:
         if thread is None:
-            thread = socketio.start_background_task(app_realtime_thread)
+            thread = socketio.start_background_task(app_realtime_thread, mem, ALGO)
 
 
-def app_realtime_thread():
+def app_realtime_thread(mem, ALGO):  # Add selected_option1 and selected_option2 as parameters
+    print("Running thread with feature option: ", mem)
+    print("Running thread with algorithm option: ", ALGO)
     count = 0
-    ALGO = 'VFBLS'
+    # ALGO = 'VFBLS'
     site = 'RIPE'
     if site == 'RIPE':
         time_interval = 5 * 60  # RIPE provides new update msg every 5 minutes
@@ -175,7 +181,7 @@ def app_realtime_thread():
 
         # === Load the data for the front-end (real-time) ===
         web_results, t_utc, t_ann, data_for_plot_ann, data_for_plot_wdrl, count, predicted_labels, \
-            t_cpu, cpus = app_realtime_detection(ALGO, site, count)
+            t_cpu, cpus = app_realtime_detection(ALGO, site, mem, count)
 
         # Show results
         # Emit uct date & time, predicted labels of 5min

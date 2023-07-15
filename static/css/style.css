@@ -353,3 +353,8 @@ footer ul li {
 #btn_reset {
     background: #6c757d;
 }
+
+/*dropdown menu*/
+.custom-dropdown .btn {
+    padding: 0.25rem 0.5rem; /* This will decrease the top and bottom padding, effectively reducing the button height */
+}

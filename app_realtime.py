@@ -37,10 +37,11 @@ from src.time_tracker import time_tracker_single
 from src.VFBLS_v110.VFBLS_realtime import vfbls_demo
 
 
-def app_realtime_detection(ALGO='VFBLS', site='RIPE', count=0):
+def app_realtime_detection(ALGO='VFBLS', site='RIPE', mem='low', count=0):
     """
     :param ALGO: algorithm
     :param site:  collection site
+    :param mem: low memory or high memory
     :param count: no. of the real-time detection
     :return: data for socket.io
     """
@@ -55,7 +56,7 @@ def app_realtime_detection(ALGO='VFBLS', site='RIPE', count=0):
     # Prepare uct date & time, predicted labels of 5min
     if ALGO == 'VFBLS':
         # VFBLS
-        predicted_labels, test_hour_chart, test_min_chart, web_results = vfbls_demo(mem='low')
+        predicted_labels, test_hour_chart, test_min_chart, web_results = vfbls_demo(mem)
         # print("predicted", predicted_labels)  # type: [2.0, 1.0, ...]
         # print("test_hour", test_hour_chart)  # type: ['01', '01', ...]
         # print("web_results", web_results)

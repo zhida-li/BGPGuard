@@ -14,7 +14,8 @@
             <div class="row">
                 <div class="col-md-10 offset-md-1 text-left">
                     <p>Real-time data retrieving and detection using the update messages collected by
-                        RIPE or Route Views and detection using pre-trained VFBLS models.
+                        RIPE or Route Views and detection.
+                        {#                        using pre-trained VFBLS models.#}
                     </p>
                 </div>
             </div>
@@ -71,6 +72,39 @@
                         </div>
                     </div>
 
+                    <div class="form-row">
+                        <div class="col-md-3 mb-3"> <!-- Add this div with class 'mb-3' to add margin-bottom -->
+                            <div class="dropdown custom-dropdown">
+                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                                        id="dropdownButton1"
+                                        data-toggle="dropdown"
+                                        aria-expanded="false">
+                                    Memory specification:
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item dropdown-item1" href="#">low</a>
+                                    <a class="dropdown-item dropdown-item1" href="#">high</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 mb-3"> <!-- Add this div with class 'mb-3' to add margin-bottom -->
+                            <div class="dropdown custom-dropdown">
+                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                                        id="dropdownButton2"
+                                        data-toggle="dropdown"
+                                        aria-expanded="false">
+                                    Pre-trained model selection:
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item dropdown-item2" href="#">VFBLS</a>
+                                    <a class="dropdown-item dropdown-item2" href="#">GRU</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
                     <!-- Buttons for connection and disconnection mr-3: margin-right-->
                     <div class="form-row">
                         <div class="col-md-6">
@@ -104,7 +138,7 @@
 
                     <div class="row">
                         <div class="col-md-6 offset-md-0 text-left">
-                            <p class="lead">Results for the past five minutes:</p>
+                            <p class="lead">Predictions over the past five minutes:</p>
                             <!-- placeholder: Results for the 1st minute... -->
                             <span id="results0_p"></span>
                             <br>

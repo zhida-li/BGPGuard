@@ -6,10 +6,39 @@ $(document).ready(function () {
     namespace = '/test_conn';
 
     var socket = io(namespace);
-    // Start the background thread by pressing the "Connect button"
-    $('#btn_connect').click(function () {
-        socket.emit('main_event');
+    var selectedOption1 = null;  // This will hold the selected dropdown item
+    var selectedOption2 = null;
+
+    // Update selected option and button text when a dropdown item is clicked
+    // For dropdown 1
+    $('.dropdown-item1').click(function () {
+        selectedOption1 = $(this).text();
+        $('#dropdownButton1').text('Memory selected: ' + selectedOption1);
     });
+
+    // For dropdown 2
+    $('.dropdown-item2').click(function () {
+        selectedOption2 = $(this).text();
+        $('#dropdownButton2').text('Pre-trained model selected: ' + selectedOption2);
+    });
+
+    // Emit selected option when "Connect" button is clicked
+    // $('#btn_connect').click(function () {
+    //     let data = {'selected_option1': selectedOption1};
+    //     socket.emit('main_event', data);
+    // });
+
+    $('#btn_connect').click(function () {
+        let data = {
+            'selected_option1': selectedOption1,
+            'selected_option2': selectedOption2
+        };
+        socket.emit('main_event', data);
+    });
+    // Start the background thread by pressing the "Connect button"
+    // $('#btn_connect').click(function () {
+    //     socket.emit('main_event');
+    // });
 
     // Disconnect the real-time task (client -> server)
     $('form#form_disconnect').submit(function (event) {
